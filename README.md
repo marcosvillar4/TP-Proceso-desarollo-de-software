@@ -11,6 +11,6 @@ Repositorio para archivos del TPO de la materia de Proceso de Desarrollo de Soft
 
 
 ### CONTENIDO:
-Sistema_de_Gestion: Carpeta que contiene el codigo java del proyecto. 
-StarUML: Carpeta que contiene las versiones del diagrama UML del proyecto. ULTIMA VERSION: 4
+- Sistema_de_Gestion: Carpeta que contiene el codigo java del proyecto. 
+- StarUML: Carpeta que contiene las versiones del diagrama UML del proyecto. ULTIMA VERSION: 4
 
