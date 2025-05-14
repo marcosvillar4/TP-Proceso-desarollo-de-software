@@ -1,6 +1,8 @@
 package Clases;
 
+import Interfaces.INotificacion;
 import Interfaces.IPagable;
+import Enum.EstadoPedido;
 
 public class Cliente {
     private String nombre;
@@ -13,11 +15,14 @@ public class Cliente {
 
     public Factura factura;
 
+    private INotificacion notificador;
+
     public Cliente(String nombre, String apellido, String dni, String correo) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.email = correo;
+        this.notificador = new EmailNotifAdapter(correo);
     }
 
     public void elegirProducto(Menu menu) {
@@ -36,6 +41,12 @@ public class Cliente {
             return true;
         }
         return false;
+    }
+
+    public void notificarCambioEstado(EstadoPedido nuevoEstado){
+        if(notificador != null){
+            notificador.enviarNotificacion(nuevoEstado);
+        }
     }
 
     //Getters

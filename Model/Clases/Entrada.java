@@ -6,7 +6,8 @@ import Clases_Abstractas.ProductoMenu;
  */
 public class Entrada extends ProductoMenu {
 
-    public Entrada() {
+    public Entrada(String nombre, String descripcion, float precio) {
+        super(nombre, descripcion, precio);
     }
 
 }

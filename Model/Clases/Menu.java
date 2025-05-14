@@ -6,11 +6,10 @@ import Clases_Abstractas.ProductoMenu;
 
 public class Menu {
 
-    public Menu() {
-    }
-
     private List<ProductoMenu> categoriasProductos;
 
-
+    public Menu() {
+        categoriasProductos = new ArrayList<>();
+    }
 
 }

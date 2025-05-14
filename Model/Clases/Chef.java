@@ -7,7 +7,6 @@ import Interfaces.INotificacion;
 
 public class Chef extends Empleado {
 
-
     public Chef(String nombre, String legajo, INotificacion notificador) {
         super(nombre, legajo, notificador);
     }

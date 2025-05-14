@@ -6,20 +6,36 @@ import Enum.EstadoPedido;
 
 public class Pedido {
 
-    public Pedido() {
+    private Cliente cliente;
+    private List<ProductoMenu> productos = new ArrayList<>();
+    private boolean confirmado;
+    private EstadoPedido estado;
+
+    public Pedido(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    private List<ProductoMenu> productos;
+    public void agregarProducto(ProductoMenu producto) {
+        if (producto != null) {
+            productos.add(producto);
+        }
+    }
 
-    private Boolean confirmado;
-
-    public Float calcularTotal() {
-        // TODO implement here
-        return null;
+    public void eliminarProducto(ProductoMenu producto) {
+        if (producto != null) {
+            productos.remove(producto);
+        }
+    }
+    public float calcularTotal() {
+        float total = 0;
+        for(ProductoMenu producto: productos) {
+            total += producto.getPrecio();
+        }
+        return total;
     }
 
     public void confirmarPedido() {
-        // TODO implement here
+        this.estado = EstadoPedido.EN_ESPERA;
     }
 
     public boolean estaConfirmado() {
@@ -27,6 +43,13 @@ public class Pedido {
     }
 
     public void cambiarEstado(EstadoPedido nuevoEstado) {
+        this.estado = nuevoEstado;
+        if(cliente != null){
+            cliente.notificarCambioEstado(nuevoEstado);
+        }
+    }
 
+    public EstadoPedido getEstado() {
+        return estado;
     }
 }
