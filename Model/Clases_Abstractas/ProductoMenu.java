@@ -25,7 +25,7 @@ public abstract class ProductoMenu {
         return false;
     }
 
-    public void agregarAlergeno(Ingrediente ingrediente){
+    public void agregarIngrediente(Ingrediente ingrediente){
         listaIngredientes.add(ingrediente);
     }
 
