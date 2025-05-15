@@ -27,9 +27,15 @@ public class Main {
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
 
-        Menu menuFile = (Menu) jsonManager.readObjectFromFile("datos.json", Menu.class);
-
+        File menuFile = jsonManager.checkFile("menu.json");
         Menu menu = new Menu();
+        if (menuFile.exists()){
+            if (Files.readString(menuFile.toPath()).isEmpty()){
+                System.out.println("File not found, Creating");
+            } else {
+                menu = (Menu) JsonReader.readObjectFromFile(menuFile, Menu.class);
+            }
+        }
 
         menu.getCategoriasProductos().add(new Bebida(1,"Coca-cola", "AAAAA", 100));
         menu.getCategoriasProductos().add(new Bebida(2,"Sprite", "BBBBB", 100));
@@ -40,6 +46,26 @@ public class Main {
         Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
         Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
         Mesero mesero1 = new Mesero("Carlos", "789","Carlos@gmail.com");
+
+
+
+        // INTERFAZ DE TERMINAL PARA PROBAR FUNCIONES
+
+        System.out.println("Bienvenido al sistema de gestión de pedidos.");
+        System.out.println("Bienvenido" + c1.getNombre() + ".");
+        System.out.println("Por favor, elija una opción:");
+
+        int respuesta = 0;
+
+        while (respuesta != 5){
+            System.out.println("1. Mostrar menú");
+            System.out.println("2. Realizar pedido");
+            System.out.println("3. Pagar pedido");
+            System.out.println("4. Cambiar estado de pedido");
+            System.out.println("5. Salir");
+            int opcion = scanner.nextInt();
+        }
+
 
 
 
