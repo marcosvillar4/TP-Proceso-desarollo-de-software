@@ -7,8 +7,8 @@ import Enum.EstadoPedido;
 public class Mesero extends Empleado {
 
 
-    public Mesero(String nombre, String legajo, INotificacion notificador, String email) {
-        super(nombre, legajo, notificador, email);
+    public Mesero(String nombre, String legajo, String email) {
+        super(nombre, legajo, email);
     }
 
     @Override

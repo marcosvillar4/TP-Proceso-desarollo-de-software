@@ -17,18 +17,6 @@ public class Pedido {
         this.orden = orden;
     }
 
-    public void agregarProducto(ProductoMenu producto) {
-        if (producto != null) {
-            productos.add(producto);
-        }
-    }
-
-    public void eliminarProducto(ProductoMenu producto) {
-        if (producto != null) {
-            productos.remove(producto);
-        }
-    }
-
     public float calcularTotal() {
         float total = 0;
         for(ProductoMenu producto: productos) {

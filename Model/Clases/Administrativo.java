@@ -6,8 +6,8 @@ import Interfaces.INotificacion;
 
 public class Administrativo extends Empleado {
 
-    public Administrativo(String nombre, String legajo, INotificacion notificador, String email){
-        super(nombre, legajo, notificador, email);
+    public Administrativo(String nombre, String legajo, String email){
+        super(nombre, legajo, email);
     }
 
     @Override

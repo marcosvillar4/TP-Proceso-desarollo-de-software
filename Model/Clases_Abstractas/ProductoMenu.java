@@ -21,12 +21,14 @@ import java.util.*;
 })
 public abstract class ProductoMenu {
 
+    private int idProducto;
     private String nombre;
     private String descripcion;
     private float precio;
     private List<Ingrediente> listaIngredientes;
 
-    public ProductoMenu(String nombre, String descripcion, float precio) {
+    public ProductoMenu(int id, String nombre, String descripcion, float precio) {
+        this.idProducto = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
