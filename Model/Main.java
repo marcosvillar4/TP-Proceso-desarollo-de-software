@@ -1,10 +1,12 @@
 import Clases.*;
+import Clases_Abstractas.ProductoMenu;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
 
@@ -20,22 +22,19 @@ public class Main {
         Ingrediente i10 = new Ingrediente("Pimienta", "Pimienta negra", false);
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
-        Ingrediente i13 = new Ingrediente("")
 
 
         JsonManager jsonManager = new JsonManager();
-        File menuFile = jsonManager.getJson();
+
+        Menu menuFile = (Menu) jsonManager.readObjectFromFile("datos.json", Menu.class);
 
 
-        Menu menu = new Menu();
+        for (ProductoMenu producto : menuFile.getCategoriasProductos()) {
+            System.out.println(producto.getNombre());
+        }
 
-        menu.getCategoriasProductos().add(new Bebida("Coca-cola", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Bebida("Sprite", "BBBBB", 100));
-        menu.getCategoriasProductos().add(new Bebida("Fernet", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Entrada("Empanada", "CCCCC", 100));
-        menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
 
-        jsonManager.writeMenu(menu, menuFile);
+
 
     }
 }

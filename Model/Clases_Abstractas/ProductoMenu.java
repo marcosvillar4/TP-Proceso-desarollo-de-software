@@ -1,9 +1,24 @@
 package Clases_Abstractas;
 
-import Clases.Ingrediente;
+import Clases.*;
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.*;
-
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "type"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Bebida.class, name = "Bebida"),
+        @JsonSubTypes.Type(value = Entrada.class, name = "Entrada"),
+        @JsonSubTypes.Type(value = PlatoPrincipal.class, name = "PlatoPrincipal"),
+        @JsonSubTypes.Type(value = Postre.class, name = "Postre"),
+})
 public abstract class ProductoMenu {
 
     private String nombre;
@@ -16,6 +31,10 @@ public abstract class ProductoMenu {
         this.descripcion = descripcion;
         this.precio = precio;
         this.listaIngredientes = new ArrayList<>();
+    }
+
+
+    public ProductoMenu() {
     }
 
     public boolean contieneAlergenos() {
@@ -42,8 +61,28 @@ public abstract class ProductoMenu {
         return precio;
     }
 
+    @JsonIgnore
     public String getType(){
         return this.getClass().getSimpleName();
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public void setListaIngredientes(List<Ingrediente> listaIngredientes) {
+        this.listaIngredientes = listaIngredientes;
+    }
 }

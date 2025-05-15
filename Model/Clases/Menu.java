@@ -8,9 +8,12 @@ public class Menu {
 
     private List<ProductoMenu> categoriasProductos;
 
+
     public Menu() {
         categoriasProductos = new ArrayList<>();
     }
+
+
 
     public List<ProductoMenu> getCategoriasProductos() {
         return categoriasProductos;

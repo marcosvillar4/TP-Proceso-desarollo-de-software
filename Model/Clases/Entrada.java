@@ -10,4 +10,6 @@ public class Entrada extends ProductoMenu {
         super(nombre, descripcion, precio);
     }
 
+    public Entrada() {
+    }
 }

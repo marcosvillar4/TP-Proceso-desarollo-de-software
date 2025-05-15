@@ -8,4 +8,6 @@ public class Postre extends ProductoMenu {
         super(nombre, descripcion, precio);
     }
 
+    public Postre() {
+    }
 }

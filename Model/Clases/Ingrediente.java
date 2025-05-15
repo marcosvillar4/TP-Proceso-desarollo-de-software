@@ -11,6 +11,9 @@ public class Ingrediente {
         this.alergeno = alergeno;
     }
 
+    public Ingrediente() {
+    }
+
     public boolean esAlergeno() {
         return alergeno;
     }
@@ -21,6 +24,22 @@ public class Ingrediente {
 
     public String getDescripcion(){
         return descripcion;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public boolean isAlergeno() {
+        return alergeno;
+    }
+
+    public void setAlergeno(boolean alergeno) {
+        this.alergeno = alergeno;
     }
 }
 
