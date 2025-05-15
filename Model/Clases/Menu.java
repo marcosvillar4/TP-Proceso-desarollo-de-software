@@ -12,4 +12,7 @@ public class Menu {
         categoriasProductos = new ArrayList<>();
     }
 
+    public List<ProductoMenu> getCategoriasProductos() {
+        return categoriasProductos;
+    }
 }

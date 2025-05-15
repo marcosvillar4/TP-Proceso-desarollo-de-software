@@ -1,5 +1,6 @@
 package Clases;
 
+import Clases_Abstractas.ProductoMenu;
 import Interfaces.INotificacion;
 import Interfaces.IPagable;
 import Enum.EstadoPedido;
@@ -26,7 +27,10 @@ public class Cliente {
     }
 
     public void elegirProducto(Menu menu) {
-        // TODO implement here
+        System.out.println("Productos disponibles:");
+        for (ProductoMenu p : menu.getCategoriasProductos()) {
+            System.out.println("- " + p.getNombre());
+        }
     }
 
     public Boolean pagarPedido(Pedido pedido, IPagable medio) {
