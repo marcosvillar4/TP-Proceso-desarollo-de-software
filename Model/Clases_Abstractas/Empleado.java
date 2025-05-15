@@ -21,6 +21,31 @@ public abstract class Empleado {
 
     public abstract void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado);
 
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public INotificacion getNotificador() {
+        return notificador;
+    }
+
+    public void setNotificador(INotificacion notificador) {
+        this.notificador = notificador;
+    }
+
+    public String getLegajo() {
+        return legajo;
+    }
+
+    public void setLegajo(String legajo) {
+        this.legajo = legajo;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" + "nombre='" + nombre + '\'' + ", legajo='" + legajo + '\'' + '}';

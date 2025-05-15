@@ -22,7 +22,6 @@ public class Cliente {
         if(nombre == null || apellido == null || dni == null || correo == null){
             throw new IllegalArgumentException("Ningún parámetro puede ser null");
         }
-
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -30,6 +29,7 @@ public class Cliente {
         this.notificador = new EmailNotifAdapter(correo);
     }
 
+    //Falta
     public void elegirProducto(Menu menu) {
         System.out.println("Productos disponibles:");
         for (ProductoMenu p : menu.getCategoriasProductos()) {
@@ -58,7 +58,7 @@ public class Cliente {
         }
     }
 
-    //Getters
+    //Getters y setters
     public Factura getFactura() {
         return factura;
     }
@@ -69,6 +69,46 @@ public class Cliente {
 
     public String getNombreCompleto(){
         return this.nombre + " " + this.apellido;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public INotificacion getNotificador() {
+        return notificador;
+    }
+
+    public void setNotificador(INotificacion notificador) {
+        this.notificador = notificador;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
     }
 
     @Override

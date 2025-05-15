@@ -53,4 +53,32 @@ public class Pedido {
     public EstadoPedido getEstado() {
         return estado;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ProductoMenu> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ProductoMenu> productos) {
+        this.productos = productos;
+    }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
+
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
+    }
 }

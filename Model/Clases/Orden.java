@@ -15,6 +15,18 @@ public class Orden {
         this.cupon = null;
     }
 
+
+    public boolean aplicarCupon(String cuponIngresado){
+        if(validador.validarDescuento(cuponIngresado)){
+            this.cupon = cuponIngresado;
+            System.out.println("Cupon aplicado: " + cuponIngresado);
+            return true;
+        }
+        System.out.println("Cupon invalido: " + cuponIngresado);
+        return false;
+    }
+
+
     public String getNumero(){
         return numero;
     }
@@ -27,13 +39,31 @@ public class Orden {
         return cupon;
     }
 
-    public boolean aplicarCupon(String cuponIngresado){
-        if(validador.validarDescuento(cuponIngresado)){
-            this.cupon = cuponIngresado;
-            System.out.println("Cupon aplicado: " + cuponIngresado);
-            return true;
-        }
-        System.out.println("Cupon invalido: " + cuponIngresado);
-        return false;
+    public static int getContador() {
+        return contador;
+    }
+
+    public static void setContador(int contador) {
+        Orden.contador = contador;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public void setCupon(String cupon) {
+        this.cupon = cupon;
+    }
+
+    public ValidadorDescuento getValidador() {
+        return validador;
+    }
+
+    public void setValidador(ValidadorDescuento validador) {
+        this.validador = validador;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 }

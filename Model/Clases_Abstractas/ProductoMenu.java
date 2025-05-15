@@ -46,4 +46,23 @@ public abstract class ProductoMenu {
         return this.getClass().getSimpleName();
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public void setListaIngredientes(List<Ingrediente> listaIngredientes) {
+        this.listaIngredientes = listaIngredientes;
+    }
 }

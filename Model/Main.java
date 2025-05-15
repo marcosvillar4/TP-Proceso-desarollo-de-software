@@ -6,6 +6,10 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
+        //JSON Manager (Persistencia)
+        JsonManager jsonManager = new JsonManager();
+        File menuFile = jsonManager.getJson();
+
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
 
         Ingrediente i1 = new Ingrediente("Leche", "Leche entera", true);
@@ -20,11 +24,7 @@ public class Main {
         Ingrediente i10 = new Ingrediente("Pimienta", "Pimienta negra", false);
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
-        Ingrediente i13 = new Ingrediente("")
-
-
-        JsonManager jsonManager = new JsonManager();
-        File menuFile = jsonManager.getJson();
+        Ingrediente i13 = new Ingrediente("Masa", "Masa de empanada", false);
 
 
         Menu menu = new Menu();
