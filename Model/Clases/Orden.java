@@ -16,14 +16,10 @@ public class Orden {
     }
 
 
-    public boolean aplicarCupon(String cuponIngresado){
-        if(validador.validarDescuento(cuponIngresado)){
-            this.cupon = cuponIngresado;
-            System.out.println("Cupon aplicado: " + cuponIngresado);
-            return true;
-        }
-        System.out.println("Cupon invalido: " + cuponIngresado);
-        return false;
+    public float aplicarCupon(String cuponIngresado){
+        this.cupon = cuponIngresado;
+        System.out.println("Cupon aplicado: " + cuponIngresado);
+        return validador.getDescuento(cuponIngresado);
     }
 
 

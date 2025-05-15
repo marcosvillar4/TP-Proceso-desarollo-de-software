@@ -5,6 +5,7 @@ import Enum.EstadoPedido;
 import Interfaces.INotificacion;
 
 public class Administrativo extends Empleado {
+
     public Administrativo(String nombre, String legajo, INotificacion notificador, String email){
         super(nombre, legajo, notificador, email);
     }
