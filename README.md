@@ -23,6 +23,7 @@ Repositorio correspondiente al Trabajo Práctico Obligatorio de la materia **Pro
 
 **Requerimiento:**  
 El sistema debe ofrecer un menú digital con categorías como entradas, platos principales, postres y bebidas. Cada producto debe tener nombre, descripción, precio y una lista de ingredientes con advertencias sobre alérgenos
+
 **Diseño:**
 - Se define la clase `Menu`, que agrupa una lista de objetos `ProductoMenu`.
 - `ProductoMenu` posee atributos como `nombre`, `descripcion`, `precio`, y una lista de `alergenicos`, junto con un booleano `contieneAlergenos`
@@ -45,6 +46,7 @@ Los clientes deben poder seleccionar productos para su pedido. El sistema debe c
 
 **Requerimiento:**  
 Los clientes pueden aplicar cupones, los cuales deben ser validados por el sistema
+
 **Diseño:**
 - `Pedido` se asocia a la clase `Orden`, que puede incluir un cupón
 - `Orden` utiliza un `ValidadorDescuento`, que implementa el método `validarDescuento(cupon: String)` para verificar su validez
@@ -65,6 +67,7 @@ El sistema debe permitir el pago mediante tarjeta de crédito o débito.
 
 **Requerimiento:**  
 El pedido debe atravesar distintos estados, desde “En espera” hasta “Entregado”. Los empleados podrán actualizar el estado
+
 **Diseño:**
 - Se define la enumeración `EstadoPedido` con los posibles estados del pedido
 - `Pedido` incluye un atributo `estado`
@@ -75,6 +78,7 @@ El pedido debe atravesar distintos estados, desde “En espera” hasta “Entre
 
 **Requerimiento:**  
 Los clientes deben ser notificados automáticamente cuando el estado de su pedido cambia, ya sea por aplicación o correo electrónico
+
 **Diseño:**
 - Se implementa la interfaz `INotificacion`, con el método `enviarNotificacion(estado: EstadoPedido)`
 - Se crean dos adaptadores: `AppNotifAdapter` y `EmailNotifAdapter`
@@ -85,12 +89,9 @@ Los clientes deben ser notificados automáticamente cuando el estado de su pedid
 
 **Requerimiento:**  
 Una vez entregado el pedido, se debe generar y enviar una factura al cliente
+
 **Diseño:**
 - `Pedido` se asocia a la clase `Factura`, que contiene los datos `montoTotal` y `Fecha`
 - `Factura` implementa el método `enviarPorCorreo(correo: String)`
 - Se utiliza el patrón de diseño Factory mediante la clase `FacturaFactory` para su generación
 ---
-
-## Conclusión
-
-El diseño presentado responde de manera precisa a los requerimientos funcionales del sistema. El modelo hace uso adecuado de los principios de diseño orientado a objetos como herencia, composición y encapsulamiento e incorpora patrones como *Factory* y *Adapter* para mejorar la mantenibilidad y extensibilidad de la solución. Se busca así una arquitectura robusta y adaptable, alineada con las necesidades de un restaurante moderno que incorpora herramientas digitales.
