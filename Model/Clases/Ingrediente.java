@@ -30,13 +30,5 @@ public class Ingrediente {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    public boolean isAlergeno() {
-        return alergeno;
-    }
-
-    public void setAlergeno(boolean alergeno) {
-        this.alergeno = alergeno;
-    }
 }
 

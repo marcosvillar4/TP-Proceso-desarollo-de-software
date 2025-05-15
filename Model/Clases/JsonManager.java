@@ -7,6 +7,20 @@ import java.io.File;
 import java.io.IOException;
 
 public class JsonManager {
+
+    //Singleton
+    private static JsonManager instance;
+    private JsonManager() {
+        // Constructor privado para evitar instanciación externa
+    }
+    public static JsonManager getInstance() {
+        if (instance == null) {
+            instance = new JsonManager();
+        }
+        return instance;
+    }
+
+    //Métodos
     public File getJson(){
         File jsonDB = new File(System.getProperty("user.dir") + "\\datos.json");
         if (jsonDB.exists()){

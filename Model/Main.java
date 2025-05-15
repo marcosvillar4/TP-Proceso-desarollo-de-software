@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         //JSON Manager (Persistencia)
-        JsonManager jsonManager = new JsonManager();
+        JsonManager jsonManager = JsonManager.getInstance();
         File menuFile = jsonManager.getJson();
 
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
