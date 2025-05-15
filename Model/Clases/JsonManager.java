@@ -30,27 +30,9 @@ public class JsonManager {
         return jsonDB;
     }
 
-    public Object readObjectFromFile(String filename, Class c) throws IOException {
-        if (checkFile(filename).exists()) {
-            File file = new File(System.getProperty("user.dir") +"\\" +filename);
-            System.out.println(Files.readString(file.toPath()));
-            ObjectMapper om = new ObjectMapper();
-            try {
-                Object ob  = om.readValue(Files.readString(file.toPath()), c);
-                System.out.println("Lectura exitosa");
-                return ob;
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            return null;
-        }
 
-    }
 
-    public boolean writeMenuFile(Menu m, File f){
+    public boolean writeFile(Object m, File f){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {

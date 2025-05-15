@@ -1,7 +1,10 @@
 import Clases.*;
+import Clases.Json.JsonReader;
+import Clases.Json.JsonWriter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -23,16 +26,24 @@ public class Main {
 
 
         JsonManager jsonManager = new JsonManager();
-
-        Menu menuFile = (Menu) jsonManager.readObjectFromFile("datos.json", Menu.class);
-
+        File menuFile = jsonManager.checkFile("menu.json");
         Menu menu = new Menu();
+        if (menuFile.exists()){
+            if (Files.readString(menuFile.toPath()).isEmpty()){
+                System.out.println("File not found, Creating");
+            } else {
+                menu = (Menu) JsonReader.readObjectFromFile(menuFile, Menu.class);
+            }
+        }
 
         menu.getCategoriasProductos().add(new Bebida("Coca-cola", "AAAAA", 100));
         menu.getCategoriasProductos().add(new Bebida("Sprite", "BBBBB", 100));
         menu.getCategoriasProductos().add(new Bebida("Fernet", "AAAAA", 100));
         menu.getCategoriasProductos().add(new Entrada("Empanada", "CCCCC", 100));
-        menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
+
+        JsonWriter.writeFile(menu,menuFile);
+
+
 
 
     }
