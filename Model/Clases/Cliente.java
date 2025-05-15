@@ -34,18 +34,19 @@ public class Cliente {
     }
 
     public Boolean pagarPedido(Pedido pedido, IPagable medio) {
-        if(pedido == null || medio == null) return false;
+        if (pedido == null || medio == null) return false;
 
         float total = pedido.calcularTotal();
         boolean pagoExitoso = medio.pagar(total);
 
-        if(pagoExitoso){pedido.confirmarPedido();
+        if (pagoExitoso) {
+            pedido.confirmarPedido();
             this.factura = FacturaFactory.crearFactura(pedido);
             this.factura.enviarPorCorreo(this.email);
-            return true;
         }
-        return false;
+        return pagoExitoso;
     }
+
 
     public void notificarCambioEstado(EstadoPedido nuevoEstado){
         if(notificador != null){
