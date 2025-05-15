@@ -13,7 +13,12 @@ public class Menu {
         categoriasProductos = new ArrayList<>();
     }
 
-
+    public void mostrarMenu() {
+        System.out.println("Productos disponibles:");
+        for (ProductoMenu p : getCategoriasProductos()) {
+            System.out.println("- " + p.getNombre());
+        }
+    }
 
     public List<ProductoMenu> getCategoriasProductos() {
         return categoriasProductos;

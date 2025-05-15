@@ -29,16 +29,6 @@ public class Cliente {
         this.notificador = new EmailNotifAdapter(correo);
     }
 
-    //Falta
-    public void elegirProducto(Menu menu) {
-        System.out.println("Productos disponibles:");
-        for (ProductoMenu p : menu.getCategoriasProductos()) {
-            System.out.println("- " + p.getNombre());
-        }
-        System.out.println("Elija un producto (Ingrese el ID del producto):");
-
-    }
-
     public Boolean pagarPedido(Pedido pedido, IPagable medio) {
         if (pedido == null || medio == null) return false;
 
@@ -52,7 +42,6 @@ public class Cliente {
         }
         return pagoExitoso;
     }
-
 
     public void notificarCambioEstado(EstadoPedido nuevoEstado){
         if(notificador != null){
