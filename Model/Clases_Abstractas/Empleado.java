@@ -1,5 +1,6 @@
 package Clases_Abstractas;
 
+import Clases.EmailNotifAdapter;
 import Clases.Pedido;
 import Interfaces.*;
 import Enum.EstadoPedido;
@@ -11,14 +12,14 @@ public abstract class Empleado {
     protected String emailEmpleado;
 
     //Constructor
-    public Empleado(String nombre, String legajo, INotificacion notificador, String email) {
-        if(nombre == null || legajo == null || notificador == null || email == null) {
+    public Empleado(String nombre, String legajo, String email) {
+        if(nombre == null || legajo == null || email == null) {
             throw new IllegalArgumentException("Ningún parámetro puede ser null");
         }
 
         this.nombre = nombre;
         this.legajo = legajo;
-        this.notificador = notificador;
+        this.notificador = new EmailNotifAdapter(email);
         this.emailEmpleado = email;
     }
 

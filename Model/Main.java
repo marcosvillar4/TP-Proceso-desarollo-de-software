@@ -2,9 +2,15 @@ import Clases.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
+        JsonManager jsonManager = new JsonManager();
+
+        Scanner scanner = new Scanner(System.in);
 
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
 
@@ -21,18 +27,20 @@ public class Main {
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
 
-
-        JsonManager jsonManager = new JsonManager();
-
         Menu menuFile = (Menu) jsonManager.readObjectFromFile("datos.json", Menu.class);
 
         Menu menu = new Menu();
 
-        menu.getCategoriasProductos().add(new Bebida("Coca-cola", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Bebida("Sprite", "BBBBB", 100));
-        menu.getCategoriasProductos().add(new Bebida("Fernet", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Entrada("Empanada", "CCCCC", 100));
+        menu.getCategoriasProductos().add(new Bebida(1,"Coca-cola", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Bebida(2,"Sprite", "BBBBB", 100));
+        menu.getCategoriasProductos().add(new Bebida(3,"Fernet", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Entrada(4,"Empanada", "CCCCC", 100));
         menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
+
+        Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
+        Administrativo 1 = new Administrativo();
+
+
 
 
     }
