@@ -13,12 +13,10 @@ public class Chef extends Empleado {
 
     @Override
     public void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado){
-        if (nuevoEstado != EstadoPedido.EN_PREPARACION && nuevoEstado != EstadoPedido.LISTO) {
+        if (nuevoEstado != EstadoPedido.EN_PREPARACION && nuevoEstado != EstadoPedido.LISTO_PARA_ENTREGAR) {
             System.out.println("El chef no puede cambiar el estado a: " + nuevoEstado);
             return;
         }
-
-        INotificacion notificador = new EmailNotifAdapter(emailEmpleado);
 
         pedido.cambiarEstado(nuevoEstado);
         notificador.enviarNotificacion(nuevoEstado);

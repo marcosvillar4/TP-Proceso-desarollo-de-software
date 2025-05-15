@@ -38,7 +38,8 @@ public class Main {
         menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
 
         Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
-        Administrativo 1 = new Administrativo();
+        Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
+        Mesero mesero1 = new Mesero("Carlos", "789","Carlos@gmail.com");
 
 
 
