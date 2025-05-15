@@ -1,7 +1,7 @@
-import Clases.Bebida;
-import Clases.Cliente;
-import Clases.Ingrediente;
-import Clases.PlatoPrincipal;
+import Clases.*;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,15 +20,22 @@ public class Main {
         Ingrediente i10 = new Ingrediente("Pimienta", "Pimienta negra", false);
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
+        Ingrediente i13 = new Ingrediente("")
 
 
-
-        PlatoPrincipal p1 = new PlatoPrincipal("Pizza", "Pizza de pepperoni", 10.99f);
-        Bebida b1 = new Bebida("Coca-Cola", "Refresco de cola", 2.50f);
-
+        JsonManager jsonManager = new JsonManager();
+        File menuFile = jsonManager.getJson();
 
 
+        Menu menu = new Menu();
 
+        menu.getCategoriasProductos().add(new Bebida("Coca-cola", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Bebida("Sprite", "BBBBB", 100));
+        menu.getCategoriasProductos().add(new Bebida("Fernet", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Entrada("Empanada", "CCCCC", 100));
+        menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
+
+        jsonManager.writeMenu(menu, menuFile);
 
     }
 }
