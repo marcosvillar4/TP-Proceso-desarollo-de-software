@@ -35,6 +35,8 @@ public class Cliente {
         for (ProductoMenu p : menu.getCategoriasProductos()) {
             System.out.println("- " + p.getNombre());
         }
+        System.out.println("Elija un producto (Ingrese el ID del producto):");
+
     }
 
     public Boolean pagarPedido(Pedido pedido, IPagable medio) {
