@@ -42,4 +42,8 @@ public abstract class ProductoMenu {
         return precio;
     }
 
+    public String getType(){
+        return this.getClass().getSimpleName();
+    }
+
 }
