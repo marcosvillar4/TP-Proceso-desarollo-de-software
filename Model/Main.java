@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import java.nio.file.Files;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -27,6 +28,8 @@ public class Main {
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
 
+
+
         File menuFile = jsonManager.checkFile("menu.json");
         Menu menu = new Menu();
         if (menuFile.exists()){
@@ -41,7 +44,10 @@ public class Main {
         menu.getCategoriasProductos().add(new Bebida(2,"Sprite", "BBBBB", 100));
         menu.getCategoriasProductos().add(new Bebida(3,"Fernet", "AAAAA", 100));
         menu.getCategoriasProductos().add(new Entrada(4,"Empanada", "CCCCC", 100));
-        menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
+
+        JsonWriter.writeFile(menu,menuFile);
+
+
 
         Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
         Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
