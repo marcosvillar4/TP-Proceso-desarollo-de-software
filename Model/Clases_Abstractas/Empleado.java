@@ -8,15 +8,18 @@ public abstract class Empleado {
     protected String nombre;
     protected String legajo;
     protected INotificacion notificador;
+    protected String email;
 
-    public Empleado(String nombre, String legajo, INotificacion notificador) {
-        if(nombre == null || legajo == null || notificador == null) {
+    //Constructor
+    public Empleado(String nombre, String legajo, INotificacion notificador, String email) {
+        if(nombre == null || legajo == null || notificador == null || email == null) {
             throw new IllegalArgumentException("Ningún parámetro puede ser null");
         }
 
         this.nombre = nombre;
         this.legajo = legajo;
         this.notificador = notificador;
+        this.email = email;
     }
 
     public abstract void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado);

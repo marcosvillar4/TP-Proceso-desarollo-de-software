@@ -6,11 +6,9 @@ import Enum.EstadoPedido;
 
 public class Mesero extends Empleado {
 
-    private String email;
 
     public Mesero(String nombre, String legajo, INotificacion notificador, String email) {
-        super(nombre, legajo, notificador);
-        this.email = email;
+        super(nombre, legajo, notificador, email);
     }
 
     @Override
@@ -24,11 +22,4 @@ public class Mesero extends Empleado {
         }
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
