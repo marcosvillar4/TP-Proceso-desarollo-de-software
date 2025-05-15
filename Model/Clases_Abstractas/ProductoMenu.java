@@ -9,29 +9,29 @@ public abstract class ProductoMenu {
     private String nombre;
     private String descripcion;
     private float precio;
-    private List<Ingrediente> alergenos;
+    private List<Ingrediente> listaIngredientes;
 
     public ProductoMenu(String nombre, String descripcion, float precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.alergenos = new ArrayList<>();
+        this.listaIngredientes = new ArrayList<>();
     }
 
     public boolean contieneAlergenos() {
-        for(Ingrediente i : alergenos) {
+        for(Ingrediente i : listaIngredientes) {
             if(i.esAlergeno()) return true;
         }
         return false;
     }
 
-    public void agregarAlergeno(Ingrediente ingrediente){
-        alergenos.add(ingrediente);
+    public void agregarIngrediente(Ingrediente ingrediente){
+        listaIngredientes.add(ingrediente);
     }
 
     //Getters
-    public List<Ingrediente> getAlergenos() {
-        return alergenos;
+    public List<Ingrediente> getListaIngredientes() {
+        return listaIngredientes;
     }
 
     public String getNombre() {

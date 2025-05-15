@@ -36,6 +36,7 @@ public class Pedido {
 
     public void confirmarPedido() {
         this.estado = EstadoPedido.EN_ESPERA;
+        this.confirmado = true;
     }
 
     public boolean estaConfirmado() {

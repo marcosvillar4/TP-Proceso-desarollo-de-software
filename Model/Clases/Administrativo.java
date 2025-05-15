@@ -12,6 +12,6 @@ public class Administrativo extends Empleado {
     @Override
     public void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado) {
         pedido.cambiarEstado(nuevoEstado);
-        System.out.println("Clases.Administrativo cambio el estado: " + nuevoEstado);
+        System.out.println("Administrativo cambio el estado: " + nuevoEstado);
     }
 }
