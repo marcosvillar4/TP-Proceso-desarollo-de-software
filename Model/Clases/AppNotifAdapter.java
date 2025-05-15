@@ -10,10 +10,6 @@ public class AppNotifAdapter implements INotificacion{
         this.userId = userId;
     }
 
-    /**
-     * Este método envía una notificación a la aplicación móvil del usuario.
-     * @param estado El estado del pedido que se va a notificar.
-     */
     @Override
     public void enviarNotificacion(EstadoPedido estado) {
         // Aca se implementaría la lógica para enviar una notificación a la aplicación
