@@ -16,10 +16,9 @@ public class Orden {
     }
 
 
-    public float aplicarCupon(String cuponIngresado){
-        this.cupon = cuponIngresado;
-        System.out.println("Cupon aplicado: " + cuponIngresado);
-        return validador.getDescuento(cuponIngresado);
+    public float aplicarCupon(){
+        System.out.println("Cupon aplicado: " + this.cupon);
+        return validador.getDescuento(this.cupon);
     }
 
 
