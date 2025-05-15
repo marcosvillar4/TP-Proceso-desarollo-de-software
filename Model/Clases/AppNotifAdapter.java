@@ -14,4 +14,12 @@ public class AppNotifAdapter implements INotificacion{
     public void enviarNotificacion(EstadoPedido estado) {
         System.out.println("Enviando notificación a la app para el usuario " + userId + " con estado: " + estado);
     }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

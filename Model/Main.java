@@ -1,8 +1,6 @@
 import Clases.*;
-import Clases_Abstractas.ProductoMenu;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {
@@ -28,12 +26,13 @@ public class Main {
 
         Menu menuFile = (Menu) jsonManager.readObjectFromFile("datos.json", Menu.class);
 
+        Menu menu = new Menu();
 
-        for (ProductoMenu producto : menuFile.getCategoriasProductos()) {
-            System.out.println(producto.getNombre());
-        }
-
-
+        menu.getCategoriasProductos().add(new Bebida("Coca-cola", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Bebida("Sprite", "BBBBB", 100));
+        menu.getCategoriasProductos().add(new Bebida("Fernet", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Entrada("Empanada", "CCCCC", 100));
+        menu.getCategoriasProductos().get(3).agregarIngrediente(new Ingrediente("Alergeno 1", "AAAAAAAAAAA", true));
 
 
     }

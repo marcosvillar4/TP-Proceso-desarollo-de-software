@@ -6,8 +6,9 @@ import Enum.EstadoPedido;
 
 public class Mesero extends Empleado {
 
-    public Mesero(String nombre, String legajo, INotificacion notificador) {
-        super(nombre, legajo, notificador);
+
+    public Mesero(String nombre, String legajo, INotificacion notificador, String email) {
+        super(nombre, legajo, notificador, email);
     }
 
     @Override
@@ -20,4 +21,5 @@ public class Mesero extends Empleado {
             System.out.println("El mesero no puede cambiar el estado a: " + nuevoEstado);
         }
     }
+
 }

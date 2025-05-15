@@ -11,8 +11,14 @@ public class EmailNotifAdapter implements INotificacion {
 
     @Override
     public void enviarNotificacion(EstadoPedido estado) {
-        // Aquí se implementaría la lógica para enviar un correo electrónico
-        // utilizando la dirección de correo electrónico proporcionada.
         System.out.println("Enviando notificación por correo a " + direccion + " con estado: " + estado);
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 }

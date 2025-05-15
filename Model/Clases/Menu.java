@@ -18,4 +18,8 @@ public class Menu {
     public List<ProductoMenu> getCategoriasProductos() {
         return categoriasProductos;
     }
+
+    public void setCategoriasProductos(List<ProductoMenu> categoriasProductos) {
+        this.categoriasProductos = categoriasProductos;
+    }
 }

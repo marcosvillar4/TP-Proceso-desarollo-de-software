@@ -10,9 +10,11 @@ public class Pedido {
     private List<ProductoMenu> productos = new ArrayList<>();
     private boolean confirmado;
     private EstadoPedido estado;
+    private Orden orden;
 
-    public Pedido(Cliente cliente) {
+    public Pedido(Cliente cliente, Orden orden) {
         this.cliente = cliente;
+        this.orden = orden;
     }
 
     public void agregarProducto(ProductoMenu producto) {
@@ -26,11 +28,13 @@ public class Pedido {
             productos.remove(producto);
         }
     }
+
     public float calcularTotal() {
         float total = 0;
         for(ProductoMenu producto: productos) {
             total += producto.getPrecio();
         }
+        total *= orden.aplicarCupon(); //Aplica el cupón al total
         return total;
     }
 
@@ -52,5 +56,29 @@ public class Pedido {
 
     public EstadoPedido getEstado() {
         return estado;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<ProductoMenu> getProductos() {
+        return productos;
+    }
+
+    public boolean isConfirmado() {
+        return confirmado;
+    }
+
+    public void setConfirmado(boolean confirmado) {
+        this.confirmado = confirmado;
+    }
+
+    public void setEstado(EstadoPedido estado) {
+        this.estado = estado;
     }
 }
