@@ -8,7 +8,7 @@ public abstract class Empleado {
     protected String nombre;
     protected String legajo;
     protected INotificacion notificador;
-    protected String email;
+    protected String emailEmpleado;
 
     //Constructor
     public Empleado(String nombre, String legajo, INotificacion notificador, String email) {
@@ -19,7 +19,7 @@ public abstract class Empleado {
         this.nombre = nombre;
         this.legajo = legajo;
         this.notificador = notificador;
-        this.email = email;
+        this.emailEmpleado = email;
     }
 
     public abstract void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado);
@@ -49,9 +49,16 @@ public abstract class Empleado {
         this.legajo = legajo;
     }
 
+    public String getEmail() {
+        return emailEmpleado;
+    }
+
+    public void setEmail(String email) {
+        this.emailEmpleado = email;
+    }
+
     @Override
     public String toString() {
         return "Empleado{" + "nombre='" + nombre + '\'' + ", legajo='" + legajo + '\'' + '}';
     }
-
 }
