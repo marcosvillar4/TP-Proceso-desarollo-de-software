@@ -1,4 +1,6 @@
 import Clases.*;
+import Clases.Json.JsonReader;
+import Clases.Json.JsonWriter;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +31,7 @@ public class Main {
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
 
 
-        JsonManager jsonManager = new JsonManager();
+
         File menuFile = jsonManager.checkFile("menu.json");
         Menu menu = new Menu();
         if (menuFile.exists()){
@@ -40,10 +42,10 @@ public class Main {
             }
         }
 
-        menu.getCategoriasProductos().add(new Bebida("Coca-cola", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Bebida("Sprite", "BBBBB", 100));
-        menu.getCategoriasProductos().add(new Bebida("Fernet", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Entrada("Empanada", "CCCCC", 100));
+        menu.getCategoriasProductos().add(new Bebida(1,"Coca-cola", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Bebida(2,"Sprite", "BBBBB", 100));
+        menu.getCategoriasProductos().add(new Bebida(3,"Fernet", "AAAAA", 100));
+        menu.getCategoriasProductos().add(new Entrada(4,"Empanada", "CCCCC", 100));
 
         JsonWriter.writeFile(menu,menuFile);
 
