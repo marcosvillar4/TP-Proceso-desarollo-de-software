@@ -14,6 +14,6 @@ public class Factura {
     }
 
     public void enviarPorCorreo(String correo){
-        System.out.println("Clases.Factura enviada a: " + correo);
+        System.out.println("Factura enviada a: " + correo);
     }
 }

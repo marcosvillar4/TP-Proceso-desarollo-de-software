@@ -19,6 +19,10 @@ public class Cliente {
     private INotificacion notificador;
 
     public Cliente(String nombre, String apellido, String dni, String correo) {
+        if(nombre == null || apellido == null || dni == null || correo == null){
+            throw new IllegalArgumentException("Ningún parámetro puede ser null");
+        }
+
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -62,4 +66,14 @@ public class Cliente {
     public String getEmail() {
         return email;
     }
+
+    public String getNombreCompleto(){
+        return this.nombre + " " + this.apellido;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "nombre='" + nombre + "', dni='" + dni + "'}";
+    }
+
 }

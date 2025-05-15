@@ -14,6 +14,7 @@ public class Chef extends Empleado {
     @Override
     public void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado){
         pedido.cambiarEstado(nuevoEstado);
-        System.out.println("Clases.Chef cambio el estado: " + nuevoEstado);
+        notificador.enviarNotificacion(nuevoEstado);
+        System.out.println("Chef cambio el estado: " + nuevoEstado);
     }
 }
