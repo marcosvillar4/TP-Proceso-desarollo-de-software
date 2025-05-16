@@ -1,18 +1,26 @@
 package Clases;
 
+import Clases.Json.JsonReader;
 import Clases_Abstractas.ProductoMenu;
 
 public class PedidoManager {
+    //Singleton
+    private static PedidoManager instancia;
 
-    public void agregarProducto(Pedido pedido, ProductoMenu producto) {
-        if (producto != null) {
-            pedido.getProductos().add(producto);
+    private PedidoManager() {
+    }
+    public static PedidoManager getInstance() {
+        if (instancia == null) {
+            instancia = new PedidoManager();
         }
+        return instancia;
     }
 
-    public void eliminarProducto(Pedido pedido, ProductoMenu producto) {
-        if (producto != null) {
-            pedido.getProductos().remove(producto);
-        }
+    public static void agregarProducto(ProductoMenu producto, Pedido pedido) {
+        pedido.getProductos().add(producto);
+    }
+
+    public static void eliminarProducto(ProductoMenu producto, Pedido pedido) {
+        pedido.getProductos().remove(producto);
     }
 }

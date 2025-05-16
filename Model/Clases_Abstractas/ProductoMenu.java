@@ -84,6 +84,14 @@ public abstract class ProductoMenu {
         this.precio = precio;
     }
 
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+
     public void setListaIngredientes(List<Ingrediente> listaIngredientes) {
         this.listaIngredientes = listaIngredientes;
     }

@@ -1,4 +1,9 @@
 import Clases.*;
+import Clases.Json.JsonReader;
+import Clases.Json.JsonWriter;
+import Clases_Abstractas.ProductoMenu;
+
+import Enum.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +15,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         JsonManager jsonManager = new JsonManager();
-
+        PedidoManager pedidoManager = PedidoManager.getInstance();
         Scanner scanner = new Scanner(System.in);
 
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
@@ -54,6 +59,7 @@ public class Main {
         Mesero mesero1 = new Mesero("Carlos", "789","Carlos@gmail.com");
 
 
+        Pedido pedido = new Pedido(c1);
 
         // INTERFAZ DE TERMINAL PARA PROBAR FUNCIONES
 
@@ -61,20 +67,182 @@ public class Main {
         System.out.println("Bienvenido" + c1.getNombre() + ".");
         System.out.println("Por favor, elija una opción:");
 
-        int respuesta = 0;
+        int opcion = 0;
 
-        while (respuesta != 5){
+        while (opcion != 8){
             System.out.println("1. Mostrar menú");
-            System.out.println("2. Realizar pedido");
-            System.out.println("3. Pagar pedido");
-            System.out.println("4. Cambiar estado de pedido");
-            System.out.println("5. Salir");
-            int opcion = scanner.nextInt();
+
+            System.out.println("2. Agregar producto");
+            System.out.println("3. Sacar producto");
+            System.out.println("4. Pagar pedido");
+            System.out.println("5. Cambiar estado de pedido");
+            System.out.println("6. Agregar item a menú");
+            System.out.println("7. Sacar item del menú");
+            System.out.println("8. Salir");
+            opcion = scanner.nextInt();
+
+            switch (opcion){
+                case 1:
+                    System.out.println("Mostrando menú:");
+                    menu.mostrarMenu();
+                    break;
+
+                case 2:
+                    System.out.println("Agregando producto:");
+                    System.out.println("Ingrese el ID del producto:");
+                    int idProducto = scanner.nextInt();
+                    ProductoMenu productoBuscado = null;
+                    for (ProductoMenu producto : menu.getCategoriasProductos()) {
+                        if (producto.getIdProducto() == idProducto){
+                            PedidoManager.agregarProducto(producto, pedido);
+                        }
+                    }
+
+                    break;
+
+                case 3:
+                    System.out.println("Sacando producto: ");
+                    System.out.println("Ingrese el ID del producto: ");
+                    int idProductoSacar = scanner.nextInt();
+                    if(!pedido.getProductos().isEmpty()){
+                        ProductoMenu productoBuscadoSacar = null;
+                        for (ProductoMenu producto : menu.getCategoriasProductos()) {
+                            if (producto.getIdProducto() == idProductoSacar){
+                                PedidoManager.eliminarProducto(producto, pedido);
+                                break;
+                            }
+                        }
+                    } else {
+                        System.out.println("Error. El pedido está vacío");
+                    }
+
+                case 4:
+                    if(pedido.getProductos().isEmpty()){
+                            System.out.println("Error. El pedido está vacío.");
+                    } else {
+                        pedido.confirmarPedido();
+                        System.out.println("Pagando pedido:");
+
+                        System.out.println("Ingresar cupon de descuento: ");
+                        String cupon = scanner.next();
+
+                        pedido.getOrden().setCupon(cupon);
+
+                        System.out.println("El total a pagar es: " + pedido.calcularTotal());
+
+                        System.out.println("Elegir método de pago: ");
+
+                        System.out.println("1. Tarjeta de Crédito");
+                        System.out.println("2. Tarjeta de Debito");
+
+                        int metodoPago = 0;
+                        while (metodoPago != 1 & metodoPago != 2) {
+                            metodoPago = scanner.nextInt();
+                            if (metodoPago != 1 & metodoPago != 2) {
+                                System.out.println("Opción no válida. Por favor, elija 1 o 2.");
+                            }
+                        }
+
+
+                        System.out.println("Ingrese el numero de tarjeta: ");
+                        String numeroTarjeta = scanner.next();
+                        System.out.println("Ingrese el nombre del titular: ");
+                        String nombreTitular = scanner.next();
+                        System.out.println("Ingrese la fecha de vencimiento: ");
+                        String fechaVencimiento = scanner.next();
+                        System.out.println("Ingrese el CVV: ");
+                        String cvv = scanner.next();
+
+                        if (metodoPago == 1){
+                            c1.pagarPedido(pedido, new TarjetaCredito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
+                        } else {
+                            c1.pagarPedido(pedido, new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
+                        }
+
+                        c1.pagarPedido(pedido, null);
+                    }
+
+                    break;
+
+                case 5:
+                    System.out.println("Cambiar estado de pedido:");
+                    System.out.println("Ingrese el nuevo estado del pedido: ");
+                    System.out.println("1. En preparación");
+                    System.out.println("2. Listo para servir");
+                    System.out.println("3. Entregado");
+                    int nuevoEstado = scanner.nextInt();
+                    switch (nuevoEstado){
+                        case 1:
+                            pedido.cambiarEstado(EstadoPedido.EN_PREPARACION);
+                            break;
+                        case 2:
+                            pedido.cambiarEstado(EstadoPedido.LISTO_PARA_ENTREGAR);
+                            break;
+                        case 3:
+                            pedido.cambiarEstado(EstadoPedido.ENTREGADO);
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                            break;
+                    }
+                    break;
+
+
+
+
+                case 6:
+                    System.out.println("Seleccione la categoria de producto a agregar:");
+                    System.out.println("1. Bebida");
+                    System.out.println("2. Entrada");
+                    System.out.println("3. Plato Principal");
+                    System.out.println("4. Postre");
+                    int categoria = scanner.nextInt();
+                    System.out.println("Ingrese el ID del producto:");
+                    int idProductoAgregar = scanner.nextInt();
+                    System.out.println("Ingrese el nombre del producto:");
+                    String nombreProductoAgregar = scanner.next();
+                    System.out.println("Ingrese la descripcion del producto:");
+                    String descripcionProductoAgregar = scanner.next();
+                    System.out.println("Ingrese el precio del producto:");
+                    float precioProductoAgregar = scanner.nextFloat();
+                    switch (categoria){
+                        case 1:
+                            menu.getCategoriasProductos().add(new Bebida(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                            break;
+                        case 2:
+                            menu.getCategoriasProductos().add(new Entrada(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                            break;
+                        case 3:
+                            menu.getCategoriasProductos().add(new PlatoPrincipal(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                            break;
+                        case 4:
+                            menu.getCategoriasProductos().add(new Postre(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                            break;
+                        default:
+                            System.out.println("Opción inválida.");
+                            break;
+                    }
+
+                case 7:
+                    System.out.println("Indique el ID del producto a eliminar:");
+                    int id = scanner.nextInt();
+                    for (ProductoMenu producto : menu.getCategoriasProductos()) {
+                        if (producto.getIdProducto() == id){
+                            menu.getCategoriasProductos().remove(producto);
+                            System.out.println("Producto eliminado.");
+                            break;
+                        }
+                    }
+
+                case 8:
+                    System.out.println("Saliendo del sistema.");
+                    break;
+                    
+                default:
+                    System.out.println("Opción inválida. Por favor, elija una opción válida.");
+                    break;
+            }
         }
-
-
-
-
-
     }
 }
+

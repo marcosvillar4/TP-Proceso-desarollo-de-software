@@ -12,9 +12,8 @@ public class Pedido {
     private EstadoPedido estado;
     private Orden orden;
 
-    public Pedido(Cliente cliente, Orden orden) {
+    public Pedido(Cliente cliente) {
         this.cliente = cliente;
-        this.orden = orden;
     }
 
     public float calcularTotal() {
@@ -29,7 +28,9 @@ public class Pedido {
     public void confirmarPedido() {
         this.estado = EstadoPedido.EN_ESPERA;
         this.confirmado = true;
+        this.orden = new Orden(this);
     }
+
 
     public boolean estaConfirmado() {
         return confirmado;
@@ -69,4 +70,10 @@ public class Pedido {
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
     }
+
+    public Orden getOrden() {
+        return orden;
+    }
+
+
 }
