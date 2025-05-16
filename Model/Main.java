@@ -64,7 +64,7 @@ public class Main {
         // INTERFAZ DE TERMINAL PARA PROBAR FUNCIONES
 
         System.out.println("Bienvenido al sistema de gestión de pedidos.");
-        System.out.println("Bienvenido" + c1.getNombre() + ".");
+        System.out.println("Bienvenido " + c1.getNombre() + ".");
         System.out.println("Por favor, elija una opción:");
 
         int opcion = 0;
@@ -99,10 +99,10 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("Sacando producto: ");
-                    System.out.println("Ingrese el ID del producto: ");
-                    int idProductoSacar = scanner.nextInt();
                     if(!pedido.getProductos().isEmpty()){
+                        System.out.println("Sacando producto: ");
+                        System.out.println("Ingrese el ID del producto: ");
+                        int idProductoSacar = scanner.nextInt();
                         for (ProductoMenu producto : menu.getCategoriasProductos()) {
                             if (producto.getIdProducto() == idProductoSacar){
                                 PedidoManager.eliminarProducto(producto, pedido);
@@ -112,6 +112,7 @@ public class Main {
                     } else {
                         System.out.println("Error. El pedido está vacío");
                     }
+                    break;
 
                 case 4:
                     if(pedido.getProductos().isEmpty()){
@@ -154,8 +155,6 @@ public class Main {
                         } else {
                             c1.pagarPedido(pedido, new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
                         }
-
-                        c1.pagarPedido(pedido, null);
                     }
 
                     break;
