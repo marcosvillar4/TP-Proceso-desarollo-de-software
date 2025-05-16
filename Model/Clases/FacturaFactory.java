@@ -7,7 +7,7 @@ public class FacturaFactory {
             throw new IllegalArgumentException("El pedido debe estar confirmado para generar la factura");
         }
 
-        float total = pedido.calcularTotal();
+        float total = pedido.getTotal();
         return new Factura(total);
     }
 }

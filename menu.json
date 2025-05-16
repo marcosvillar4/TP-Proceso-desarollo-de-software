@@ -139,5 +139,173 @@
     "descripcion" : "CCCCC",
     "precio" : 100.0,
     "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 1,
+    "nombre" : "Coca-cola",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Sprite",
+    "descripcion" : "BBBBB",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 3,
+    "nombre" : "Fernet",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 4,
+    "nombre" : "Empanada",
+    "descripcion" : "CCCCC",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 1,
+    "nombre" : "Coca-cola",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Sprite",
+    "descripcion" : "BBBBB",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 3,
+    "nombre" : "Fernet",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 4,
+    "nombre" : "Empanada",
+    "descripcion" : "CCCCC",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 1,
+    "nombre" : "Coca-cola",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Sprite",
+    "descripcion" : "BBBBB",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 3,
+    "nombre" : "Fernet",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 4,
+    "nombre" : "Empanada",
+    "descripcion" : "CCCCC",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 1,
+    "nombre" : "Coca-cola",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Sprite",
+    "descripcion" : "BBBBB",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 3,
+    "nombre" : "Fernet",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 4,
+    "nombre" : "Empanada",
+    "descripcion" : "CCCCC",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 1,
+    "nombre" : "Coca-cola",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Sprite",
+    "descripcion" : "BBBBB",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 3,
+    "nombre" : "Fernet",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 4,
+    "nombre" : "Empanada",
+    "descripcion" : "CCCCC",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 1,
+    "nombre" : "Coca-cola",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Sprite",
+    "descripcion" : "BBBBB",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 3,
+    "nombre" : "Fernet",
+    "descripcion" : "AAAAA",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 4,
+    "nombre" : "Empanada",
+    "descripcion" : "CCCCC",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
   } ]
 }

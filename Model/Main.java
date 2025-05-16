@@ -91,6 +91,9 @@ public class Main {
                     for (ProductoMenu producto : menu.getCategoriasProductos()) {
                         if (producto.getIdProducto() == idProducto){
                             PedidoManager.agregarProducto(producto, pedido);
+                            for (ProductoMenu productoPedido : pedido.getProductos()) {
+                                System.out.println(productoPedido.getNombre());
+                            }
                         }
                     }
                     break;
@@ -121,9 +124,10 @@ public class Main {
                         System.out.println("Ingresar cupon de descuento: ");
                         String cupon = scanner.next();
 
-                        pedido.getOrden().setCupon(cupon);
+                        pedido.setCupon(cupon);
 
-                        System.out.println("El total a pagar es: " + pedido.calcularTotal());
+                        System.out.println("Precio sin descuento: " + pedido.getTotalSinDescuento());
+                        System.out.println("Precio con descuento aplicado (total a pagar): " + pedido.calcularTotal());
 
                         System.out.println("Elegir método de pago: ");
 
@@ -153,7 +157,6 @@ public class Main {
                             c1.pagarPedido(pedido, new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
                         }
                     }
-
                     break;
 
                 case 5:
