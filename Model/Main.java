@@ -207,12 +207,15 @@ public class Main {
     private static void eliminarItemMenu(Scanner scanner, Menu menu) {
         System.out.println("Indique el ID del producto a eliminar:");
         int id = scanner.nextInt();
+        boolean check = false;
         for (ProductoMenu producto : menu.getCategoriasProductos()) {
             if (producto.getIdProducto() == id){
                 menu.getCategoriasProductos().remove(producto);
                 System.out.println("Producto eliminado.");
-                break;
             }
+        }
+        if (!check){
+            System.out.println("Elemento no encotrado");
         }
     }
 
@@ -224,8 +227,7 @@ public class Main {
         System.out.println("3. Plato Principal");
         System.out.println("4. Postre");
         int categoria = scanner.nextInt();
-        System.out.println("Ingrese el ID del producto:");
-        int idProductoAgregar = scanner.nextInt();
+        int idProductoAgregar = menu.getCategoriasProductos().size();
         System.out.println("Ingrese el nombre del producto:");
         String nombreProductoAgregar = scanner.next();
         System.out.println("Ingrese la descripcion del producto:");
