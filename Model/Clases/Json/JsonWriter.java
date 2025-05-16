@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class JsonWriter {
@@ -11,6 +12,7 @@ public class JsonWriter {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
+            new FileWriter(f, false).close();
             objectMapper.writeValue(f, m);
             return true;
         } catch (IOException e) {

@@ -1,4 +1,5 @@
 import Clases.*;
+import Clases.Json.JsonManager;
 import Clases.Json.JsonReader;
 import Clases.Json.JsonWriter;
 import Clases_Abstractas.ProductoMenu;
@@ -36,20 +37,17 @@ public class Main {
         Menu menu = new Menu();
         if (menuFile.exists()){
             if (Files.readString(menuFile.toPath()).isEmpty()){
-                System.out.println("File not found, Creating");
+                System.out.println("Archivo no encontrado, Creando");
             } else {
                 menu = (Menu) JsonReader.readObjectFromFile(menuFile, Menu.class);
             }
         }
 
-        menu.getCategoriasProductos().add(new Bebida(1,"Coca-cola", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Bebida(2,"Sprite", "BBBBB", 100));
-        menu.getCategoriasProductos().add(new Bebida(3,"Fernet", "AAAAA", 100));
-        menu.getCategoriasProductos().add(new Entrada(4,"Empanada", "CCCCC", 100));
+        /*menu.getCategoriasProductos().add(new Entrada(1,"AAAA", "AAAAA", 1000));
 
-        JsonWriter.writeFile(menu,menuFile);
+        menu.getCategoriasProductos().add(new Entrada(2,"BBBB", "AAAAA", 1000));
 
-
+        menu.getCategoriasProductos().add(new Entrada(3,"CCCC", "AAAAA", 1000));*/
 
         Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
         Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
@@ -88,10 +86,14 @@ public class Main {
                     System.out.println("Agregando producto:");
                     System.out.println("Ingrese el ID del producto:");
                     int idProducto = scanner.nextInt();
+                    boolean check = false;
                     for (ProductoMenu producto : menu.getCategoriasProductos()) {
                         if (producto.getIdProducto() == idProducto){
                             PedidoManager.agregarProducto(producto, pedido);
                         }
+                    }
+                    if (!check){
+                        System.out.println("Item no encontrado!");
                     }
                     break;
 
@@ -225,6 +227,9 @@ public class Main {
 
                 case 8:
                     System.out.println("Saliendo del sistema.");
+
+                    JsonWriter.writeFile(menu,menuFile);
+
                     break;
                     
                 default:
