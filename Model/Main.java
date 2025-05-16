@@ -43,11 +43,6 @@ public class Main {
             }
         }
 
-        /*menu.getCategoriasProductos().add(new Entrada(1,"AAAA", "AAAAA", 1000));
-
-        menu.getCategoriasProductos().add(new Entrada(2,"BBBB", "AAAAA", 1000));
-
-        menu.getCategoriasProductos().add(new Entrada(3,"CCCC", "AAAAA", 1000));*/
 
         Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
         Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
@@ -66,7 +61,6 @@ public class Main {
 
         while (opcion != 8){
             System.out.println("1. Mostrar menú");
-
             System.out.println("2. Agregar producto");
             System.out.println("3. Sacar producto");
             System.out.println("4. Pagar pedido");
@@ -83,81 +77,94 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.println("Agregando producto:");
-                    System.out.println("Ingrese el ID del producto:");
-                    int idProducto = scanner.nextInt();
-                    boolean check = false;
-                    for (ProductoMenu producto : menu.getCategoriasProductos()) {
-                        if (producto.getIdProducto() == idProducto){
-                            PedidoManager.agregarProducto(producto, pedido);
-                            for (ProductoMenu productoPedido : pedido.getProductos()) {
-                                System.out.println(productoPedido.getNombre());
+
+                    if (!pedido.estaConfirmado()) {
+                        System.out.println("Agregando producto:");
+                        System.out.println("Ingrese el ID del producto:");
+                        int idProducto = scanner.nextInt();
+                        boolean check = false;
+                        for (ProductoMenu producto : menu.getCategoriasProductos()) {
+                            if (producto.getIdProducto() == idProducto){
+                                PedidoManager.agregarProducto(producto, pedido);
+                                for (ProductoMenu productoPedido : pedido.getProductos()) {
+                                    System.out.println(productoPedido.getNombre());
+                                }
                             }
                         }
-                    }
-                    if (!check){
-                        System.out.println("Item no encontrado!");
+                        if (!check){
+                            System.out.println("Item no encontrado!");
+                        }
+                    } else {
+                        System.out.println("Pedido ya esta confirmado");
                     }
                     break;
 
                 case 3:
-                    if(!pedido.getProductos().isEmpty()){
-                        System.out.println("Sacando producto: ");
-                        System.out.println("Ingrese el ID del producto: ");
-                        int idProductoSacar = scanner.nextInt();
-                        for (ProductoMenu producto : menu.getCategoriasProductos()) {
-                            if (producto.getIdProducto() == idProductoSacar){
-                                PedidoManager.eliminarProducto(producto, pedido);
-                                break;
+                    if (!pedido.estaConfirmado()) {
+                        if(!pedido.getProductos().isEmpty()){
+                            System.out.println("Sacando producto: ");
+                            System.out.println("Ingrese el ID del producto: ");
+                            int idProductoSacar = scanner.nextInt();
+                            for (ProductoMenu producto : menu.getCategoriasProductos()) {
+                                if (producto.getIdProducto() == idProductoSacar){
+                                    PedidoManager.eliminarProducto(producto, pedido);
+                                    break;
+                                }
                             }
+                        } else {
+                            System.out.println("Error. El pedido está vacío");
                         }
                     } else {
-                        System.out.println("Error. El pedido está vacío");
+                        System.out.println("Pedido ya esta confirmado");
                     }
                     break;
 
                 case 4:
-                    if(pedido.getProductos().isEmpty()){
-                            System.out.println("Error. El pedido está vacío.");
-                    } else {
-                        pedido.confirmarPedido();
-                        System.out.println("Pagando pedido:");
+                    if (!pedido.estaConfirmado()) {
+                        if(pedido.getProductos().isEmpty()){
+                                System.out.println("Error. El pedido está vacío.");
+                        } else {
+                            pedido.confirmarPedido();
+                            System.out.println("Pagando pedido:");
 
-                        System.out.println("Ingresar cupon de descuento: ");
-                        String cupon = scanner.next();
+                            System.out.println("Ingresar cupon de descuento: ");
+                            String cupon = scanner.next();
 
-                        pedido.setCupon(cupon);
+                            pedido.setCupon(cupon);
 
-                        System.out.println("Precio sin descuento: " + pedido.getTotalSinDescuento());
-                        System.out.println("Precio con descuento aplicado (total a pagar): " + pedido.calcularTotal());
+                            System.out.println("Precio sin descuento: " + pedido.getTotalSinDescuento());
+                            System.out.println("Precio con descuento aplicado (total a pagar): " + pedido.calcularTotal());
 
-                        System.out.println("Elegir método de pago: ");
+                            System.out.println("Elegir método de pago: ");
 
-                        System.out.println("1. Tarjeta de Crédito");
-                        System.out.println("2. Tarjeta de Debito");
+                            System.out.println("1. Tarjeta de Crédito");
+                            System.out.println("2. Tarjeta de Debito");
 
-                        int metodoPago = 0;
-                        while (metodoPago != 1 & metodoPago != 2) {
-                            metodoPago = scanner.nextInt();
-                            if (metodoPago != 1 & metodoPago != 2) {
-                                System.out.println("Opción no válida. Por favor, elija 1 o 2.");
+                            int metodoPago = 0;
+                            while (metodoPago != 1 & metodoPago != 2) {
+                                metodoPago = scanner.nextInt();
+                                if (metodoPago != 1 & metodoPago != 2) {
+                                    System.out.println("Opción no válida. Por favor, elija 1 o 2.");
+                                }
+                            }
+
+                            System.out.println("Ingrese el numero de tarjeta: ");
+                            String numeroTarjeta = scanner.next();
+                            System.out.println("Ingrese el nombre del titular: ");
+                            String nombreTitular = scanner.next();
+                            System.out.println("Ingrese la fecha de vencimiento: ");
+                            String fechaVencimiento = scanner.next();
+                            System.out.println("Ingrese el CVV: ");
+                            String cvv = scanner.next();
+
+                            if (metodoPago == 1){
+                                c1.pagarPedido(pedido, new TarjetaCredito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
+                            } else {
+                                c1.pagarPedido(pedido, new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
                             }
                         }
-
-                        System.out.println("Ingrese el numero de tarjeta: ");
-                        String numeroTarjeta = scanner.next();
-                        System.out.println("Ingrese el nombre del titular: ");
-                        String nombreTitular = scanner.next();
-                        System.out.println("Ingrese la fecha de vencimiento: ");
-                        String fechaVencimiento = scanner.next();
-                        System.out.println("Ingrese el CVV: ");
-                        String cvv = scanner.next();
-
-                        if (metodoPago == 1){
-                            c1.pagarPedido(pedido, new TarjetaCredito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
-                        } else {
-                            c1.pagarPedido(pedido, new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
-                        }
+                    } else {
+                        System.out.println("Pedido ya esta confirmado");
                     }
                     break;
 
