@@ -91,13 +91,11 @@ public class Main {
                     System.out.println("Agregando producto:");
                     System.out.println("Ingrese el ID del producto:");
                     int idProducto = scanner.nextInt();
-                    ProductoMenu productoBuscado = null;
                     for (ProductoMenu producto : menu.getCategoriasProductos()) {
                         if (producto.getIdProducto() == idProducto){
                             PedidoManager.agregarProducto(producto, pedido);
                         }
                     }
-
                     break;
 
                 case 3:
@@ -105,7 +103,6 @@ public class Main {
                     System.out.println("Ingrese el ID del producto: ");
                     int idProductoSacar = scanner.nextInt();
                     if(!pedido.getProductos().isEmpty()){
-                        ProductoMenu productoBuscadoSacar = null;
                         for (ProductoMenu producto : menu.getCategoriasProductos()) {
                             if (producto.getIdProducto() == idProductoSacar){
                                 PedidoManager.eliminarProducto(producto, pedido);
@@ -142,7 +139,6 @@ public class Main {
                                 System.out.println("Opción no válida. Por favor, elija 1 o 2.");
                             }
                         }
-
 
                         System.out.println("Ingrese el numero de tarjeta: ");
                         String numeroTarjeta = scanner.next();
@@ -186,9 +182,6 @@ public class Main {
                             break;
                     }
                     break;
-
-
-
 
                 case 6:
                     System.out.println("Seleccione la categoria de producto a agregar:");
