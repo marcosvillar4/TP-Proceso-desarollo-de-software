@@ -12,13 +12,13 @@ public class Orden {
         this.numero = "ORD-" + (++contador);
         this.pedido = pedido;
         this.validador = new ValidadorDescuento();
-        this.cupon = null;
     }
 
 
-    public float aplicarCupon(){
-        System.out.println("Cupon aplicado: " + this.cupon);
-        return validador.getDescuento(this.cupon);
+    public float aplicarCupon(String cupon){
+        this.cupon = cupon;
+        System.out.println("Cupon aplicado: " + cupon);
+        return validador.getDescuento(cupon);
     }
 
 

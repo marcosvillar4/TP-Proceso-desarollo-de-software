@@ -11,6 +11,9 @@ public class Pedido {
     private boolean confirmado;
     private EstadoPedido estado;
     private Orden orden;
+    private String cupon;
+    private float total;
+    private float totalSinDescuento;
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
@@ -21,7 +24,9 @@ public class Pedido {
         for(ProductoMenu producto: productos) {
             total += producto.getPrecio();
         }
-        total *= orden.aplicarCupon(); //Aplica el cupón al total
+        this.totalSinDescuento = total;
+        total *= orden.aplicarCupon(cupon); //Aplica el cupón al total
+        this.total = total;
         return total;
     }
 
@@ -30,7 +35,6 @@ public class Pedido {
         this.confirmado = true;
         this.orden = new Orden(this);
     }
-
 
     public boolean estaConfirmado() {
         return confirmado;
@@ -59,10 +63,6 @@ public class Pedido {
         return productos;
     }
 
-    public boolean isConfirmado() {
-        return confirmado;
-    }
-
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
     }
@@ -71,9 +71,18 @@ public class Pedido {
         this.estado = estado;
     }
 
+    public void setCupon(String cupon){
+        this.cupon = cupon;
+    }
     public Orden getOrden() {
         return orden;
     }
 
+    public float getTotal(){
+        return total;
+    }
 
+    public float getTotalSinDescuento(){
+        return totalSinDescuento;
+    }
 }
