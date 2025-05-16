@@ -9,7 +9,7 @@
   }, {
     "type" : "Bebida",
     "idProducto" : 10,
-    "nombre" : "10",
+    "nombre" : "agua",
     "descripcion" : "10",
     "precio" : 10.0,
     "listaIngredientes" : [ ]

@@ -59,15 +59,16 @@ public class Main {
 
         int opcion = 0;
 
-        while (opcion != 8){
+        while (opcion != 9){
             System.out.println("1. Mostrar menú");
             System.out.println("2. Agregar producto");
             System.out.println("3. Sacar producto");
-            System.out.println("4. Pagar pedido");
-            System.out.println("5. Cambiar estado de pedido");
-            System.out.println("6. Agregar item a menú");
-            System.out.println("7. Sacar item del menú");
-            System.out.println("8. Salir");
+            System.out.println("4. Ver pedido");
+            System.out.println("5. Pagar pedido");
+            System.out.println("6. Cambiar estado de pedido");
+            System.out.println("7. Agregar item a menú");
+            System.out.println("8. Sacar item del menú");
+            System.out.println("9. Salir");
             opcion = scanner.nextInt();
 
             switch (opcion){
@@ -82,17 +83,23 @@ public class Main {
                         System.out.println("Agregando producto:");
                         System.out.println("Ingrese el ID del producto:");
                         int idProducto = scanner.nextInt();
+
                         boolean check = false;
+
                         for (ProductoMenu producto : menu.getCategoriasProductos()) {
                             if (producto.getIdProducto() == idProducto){
                                 PedidoManager.agregarProducto(producto, pedido);
+                                check = true;
                                 for (ProductoMenu productoPedido : pedido.getProductos()) {
                                     System.out.println(productoPedido.getNombre());
                                 }
                             }
                         }
+
                         if (!check){
-                            System.out.println("Item no encontrado!");
+                            System.out.println("¡Item no encontrado!");
+                        } else {
+                            System.out.println("¡Item agregado correctamente!");
                         }
                     } else {
                         System.out.println("Pedido ya esta confirmado");
@@ -120,6 +127,19 @@ public class Main {
                     break;
 
                 case 4:
+                    if (pedido.getProductos().isEmpty()){
+                        System.out.println("No hay productos en el pedido");
+                        break;
+                    } else {
+                        for (ProductoMenu producto : pedido.getProductos()) {
+                            System.out.println(producto.getNombre());
+                            System.out.println("Precio: " + producto.getPrecio());
+                            System.out.println("---------------------------------------");
+                        }
+                    }
+                    break;
+
+                case 5:
                     if (!pedido.estaConfirmado()) {
                         if(pedido.getProductos().isEmpty()){
                                 System.out.println("Error. El pedido está vacío.");
@@ -127,7 +147,7 @@ public class Main {
                             pedido.confirmarPedido();
                             System.out.println("Pagando pedido:");
 
-                            System.out.println("Ingresar cupon de descuento: ");
+                            System.out.println("Ingresar cupon de descuento (Opciones: DESC10, PROMO25, DESC50): ");
                             String cupon = scanner.next();
 
                             pedido.setCupon(cupon);
@@ -168,7 +188,7 @@ public class Main {
                     }
                     break;
 
-                case 5:
+                case 6:
                     System.out.println("Cambiar estado de pedido:");
                     System.out.println("Ingrese el nuevo estado del pedido: ");
                     System.out.println("1. En preparación");
@@ -191,15 +211,15 @@ public class Main {
                     }
                     break;
 
-                case 6:
-                    agregarItemMenu(menu);
-                    break;
-
                 case 7:
-                    eliminarItemMenu(scanner, menu);
+                    agregarItemMenu(menu, scanner);
                     break;
 
                 case 8:
+                    eliminarItemMenu(scanner, menu);
+                    break;
+
+                case 9:
                     System.out.println("Saliendo del sistema.");
                     JsonWriter.writeFile(menu,menuFile);
                     break;
@@ -208,7 +228,10 @@ public class Main {
                     System.out.println("Opción inválida. Por favor, elija una opción válida.");
                     break;
             }
+
         }
+
+        scanner.close();
     }
 
     private static void eliminarItemMenu(Scanner scanner, Menu menu) {
@@ -226,19 +249,28 @@ public class Main {
         }
     }
 
-    private static void agregarItemMenu(Menu menu) {
-        Scanner scanner = new Scanner(System.in);
+    private static void agregarItemMenu(Menu menu, Scanner scanner) {
+
         System.out.println("Seleccione la categoria de producto a agregar:");
         System.out.println("1. Bebida");
         System.out.println("2. Entrada");
         System.out.println("3. Plato Principal");
         System.out.println("4. Postre");
+
         int categoria = scanner.nextInt();
+
         int idProductoAgregar = menu.getCategoriasProductos().size();
+
         System.out.println("Ingrese el nombre del producto:");
         String nombreProductoAgregar = scanner.next();
+
+        String descripcionProductoAgregar = "";
+
         System.out.println("Ingrese la descripcion del producto:");
-        String descripcionProductoAgregar = scanner.next();
+        while (descripcionProductoAgregar.isEmpty()){
+            descripcionProductoAgregar = scanner.nextLine();
+        }
+
         System.out.println("Ingrese el precio del producto:");
         float precioProductoAgregar = scanner.nextFloat();
         switch (categoria){
@@ -258,6 +290,7 @@ public class Main {
                 System.out.println("Opción inválida.");
                 break;
         }
+
     }
 }
 
