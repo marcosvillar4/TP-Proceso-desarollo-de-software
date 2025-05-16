@@ -18,7 +18,7 @@ public class Menu {
         System.out.println();
         for (ProductoMenu producto : categoriasProductos) {
             System.out.println("Nombre: " + producto.getNombre() + " - Id: " + producto.getIdProducto() + " - Precio: " + producto.getPrecio());
-            System.out.println(1);
+            System.out.println();
         }
     }
 

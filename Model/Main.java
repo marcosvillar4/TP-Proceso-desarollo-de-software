@@ -185,60 +185,69 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("Seleccione la categoria de producto a agregar:");
-                    System.out.println("1. Bebida");
-                    System.out.println("2. Entrada");
-                    System.out.println("3. Plato Principal");
-                    System.out.println("4. Postre");
-                    int categoria = scanner.nextInt();
-                    System.out.println("Ingrese el ID del producto:");
-                    int idProductoAgregar = scanner.nextInt();
-                    System.out.println("Ingrese el nombre del producto:");
-                    String nombreProductoAgregar = scanner.next();
-                    System.out.println("Ingrese la descripcion del producto:");
-                    String descripcionProductoAgregar = scanner.next();
-                    System.out.println("Ingrese el precio del producto:");
-                    float precioProductoAgregar = scanner.nextFloat();
-                    switch (categoria){
-                        case 1:
-                            menu.getCategoriasProductos().add(new Bebida(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                            break;
-                        case 2:
-                            menu.getCategoriasProductos().add(new Entrada(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                            break;
-                        case 3:
-                            menu.getCategoriasProductos().add(new PlatoPrincipal(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                            break;
-                        case 4:
-                            menu.getCategoriasProductos().add(new Postre(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                            break;
-                        default:
-                            System.out.println("Opción inválida.");
-                            break;
-                    }
+                    agregarItemMenu(menu);
+                    break;
 
                 case 7:
-                    System.out.println("Indique el ID del producto a eliminar:");
-                    int id = scanner.nextInt();
-                    for (ProductoMenu producto : menu.getCategoriasProductos()) {
-                        if (producto.getIdProducto() == id){
-                            menu.getCategoriasProductos().remove(producto);
-                            System.out.println("Producto eliminado.");
-                            break;
-                        }
-                    }
+                    eliminarItemMenu(scanner, menu);
+                    break;
 
                 case 8:
                     System.out.println("Saliendo del sistema.");
-
                     JsonWriter.writeFile(menu,menuFile);
-
                     break;
                     
                 default:
                     System.out.println("Opción inválida. Por favor, elija una opción válida.");
                     break;
             }
+        }
+    }
+
+    private static void eliminarItemMenu(Scanner scanner, Menu menu) {
+        System.out.println("Indique el ID del producto a eliminar:");
+        int id = scanner.nextInt();
+        for (ProductoMenu producto : menu.getCategoriasProductos()) {
+            if (producto.getIdProducto() == id){
+                menu.getCategoriasProductos().remove(producto);
+                System.out.println("Producto eliminado.");
+                break;
+            }
+        }
+    }
+
+    private static void agregarItemMenu(Menu menu) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Seleccione la categoria de producto a agregar:");
+        System.out.println("1. Bebida");
+        System.out.println("2. Entrada");
+        System.out.println("3. Plato Principal");
+        System.out.println("4. Postre");
+        int categoria = scanner.nextInt();
+        System.out.println("Ingrese el ID del producto:");
+        int idProductoAgregar = scanner.nextInt();
+        System.out.println("Ingrese el nombre del producto:");
+        String nombreProductoAgregar = scanner.next();
+        System.out.println("Ingrese la descripcion del producto:");
+        String descripcionProductoAgregar = scanner.next();
+        System.out.println("Ingrese el precio del producto:");
+        float precioProductoAgregar = scanner.nextFloat();
+        switch (categoria){
+            case 1:
+                menu.getCategoriasProductos().add(new Bebida(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                break;
+            case 2:
+                menu.getCategoriasProductos().add(new Entrada(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                break;
+            case 3:
+                menu.getCategoriasProductos().add(new PlatoPrincipal(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                break;
+            case 4:
+                menu.getCategoriasProductos().add(new Postre(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                break;
         }
     }
 }
