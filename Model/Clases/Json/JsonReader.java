@@ -9,7 +9,7 @@ import java.nio.file.Files;
 
 public class JsonReader {
     public static Object readObjectFromFile(File file, Class c) throws IOException {
-        System.out.println(Files.readString(file.toPath()));
+        //System.out.println(Files.readString(file.toPath())); // Funcion para imprimir JSON completo en CMD, PARA DEBUGING
         ObjectMapper om = new ObjectMapper();
         try {
             Object ob  = om.readValue(Files.readString(file.toPath()), c);
