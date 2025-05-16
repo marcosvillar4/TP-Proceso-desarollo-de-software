@@ -95,3 +95,30 @@ Una vez entregado el pedido, se debe generar y enviar una factura al cliente
 - `Factura` implementa el método `enviarPorCorreo(correo: String)`
 - Se utiliza el patrón de diseño Factory mediante la clase `FacturaFactory` para su generación
 ---
+
+### 8. Persistencia con Archivos JSON
+
+**Requerimiento:**  
+El sistema debe permitir guardar y recuperar la información del menú en un archivo para conservar los datos entre ejecuciones
+
+**Diseño:**  
+Se utiliza la librería **Jackson** para la serialización y deserialización de objetos Java en formato JSON. Para ello, se implementaron clases específicas dentro del paquete `Clases.Json`:
+
+#### `JsonManager`
+- `checkFile(String filename)`: Verifica si el archivo existe; si no, lo crea.
+- `writeFile(Object m, File f)`: Escribe un objeto Java en el archivo JSON con formato legible (indentado)
+
+#### `JsonWriter`
+- `writeFile(Object m, File f)`: Versión estática que sobrescribe y guarda el objeto en el archivo JSON
+
+#### `JsonReader`
+- `readObjectFromFile(File file, Class c)`: Lee y convierte un archivo JSON a una instancia de la clase especificada
+
+#### Ejemplo de uso:
+```java
+JsonManager manager = new JsonManager();
+File archivo = manager.checkFile("datos.json");
+manager.writeFile(menu, archivo);
+
+Menu menuRecuperado = (Menu) JsonReader.readObjectFromFile(archivo, Menu.class);
+

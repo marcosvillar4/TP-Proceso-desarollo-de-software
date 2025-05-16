@@ -32,7 +32,7 @@ public class Cliente {
     public Boolean pagarPedido(Pedido pedido, IPagable medio) {
         if (pedido == null || medio == null) return false;
 
-        float total = pedido.calcularTotal();
+        float total = pedido.getTotal();
         boolean pagoExitoso = medio.pagar(total);
 
         if (pagoExitoso) {

@@ -13,5 +13,40 @@
     "descripcion" : "10",
     "precio" : 10.0,
     "listaIngredientes" : [ ]
+  }, {
+    "type" : "Postre",
+    "idProducto" : 11,
+    "nombre" : "Flan",
+    "descripcion" : "Es rico",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "PlatoPrincipal",
+    "idProducto" : 12,
+    "nombre" : "Fideos",
+    "descripcion" : "A la bolgnesa",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 13,
+    "nombre" : "Tortilla",
+    "descripcion" : " española",
+    "precio" : 1000.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 14,
+    "nombre" : "Provoleta",
+    "descripcion" : "Con morrón",
+    "precio" : 12.0,
+    "listaIngredientes" : [ ]
+  }, {
+    "type" : "Postre",
+    "idProducto" : 15,
+    "nombre" : "Pasta frola",
+    "descripcion" : "",
+    "precio" : 500.0,
+    "listaIngredientes" : [ ]
   } ]
 }

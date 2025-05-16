@@ -9,6 +9,7 @@ public class PedidoManager {
 
     private PedidoManager() {
     }
+
     public static PedidoManager getInstance() {
         if (instancia == null) {
             instancia = new PedidoManager();

@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         JsonManager jsonManager = new JsonManager();
-        PedidoManager pedidoManager = PedidoManager.getInstance();
         Scanner scanner = new Scanner(System.in);
 
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
@@ -31,8 +30,6 @@ public class Main {
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
 
-
-
         File menuFile = jsonManager.checkFile("menu.json");
         Menu menu = new Menu();
         if (menuFile.exists()){
@@ -42,7 +39,6 @@ public class Main {
                 menu = (Menu) JsonReader.readObjectFromFile(menuFile, Menu.class);
             }
         }
-
 
         Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
         Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
@@ -90,17 +86,13 @@ public class Main {
                             if (producto.getIdProducto() == idProducto){
                                 PedidoManager.agregarProducto(producto, pedido);
                                 check = true;
-                                for (ProductoMenu productoPedido : pedido.getProductos()) {
-                                    System.out.println(productoPedido.getNombre());
-                                }
+                                System.out.println("¡"+ producto.getNombre() + " agregado correctamente!");
                             }
                         }
-
                         if (!check){
                             System.out.println("¡Item no encontrado!");
-                        } else {
-                            System.out.println("¡Item agregado correctamente!");
                         }
+
                     } else {
                         System.out.println("Pedido ya esta confirmado");
                     }
@@ -112,12 +104,20 @@ public class Main {
                             System.out.println("Sacando producto: ");
                             System.out.println("Ingrese el ID del producto: ");
                             int idProductoSacar = scanner.nextInt();
-                            for (ProductoMenu producto : menu.getCategoriasProductos()) {
+
+                            boolean encontrado = false;
+
+                            for (ProductoMenu producto : pedido.getProductos()) {
                                 if (producto.getIdProducto() == idProductoSacar){
+                                    System.out.println("Producto eliminado: " + producto.getNombre());
                                     PedidoManager.eliminarProducto(producto, pedido);
+                                    encontrado = true;
                                     break;
                                 }
                             }
+                            //Si no encuentra el producto hace un sout
+                            if(!encontrado) System.out.println("Producto no encontrado");
+
                         } else {
                             System.out.println("Error. El pedido está vacío");
                         }
@@ -131,6 +131,7 @@ public class Main {
                         System.out.println("No hay productos en el pedido");
                         break;
                     } else {
+                        System.out.println("Productos dentro del pedido: ");
                         for (ProductoMenu producto : pedido.getProductos()) {
                             System.out.println(producto.getNombre());
                             System.out.println("Precio: " + producto.getPrecio());
@@ -147,13 +148,17 @@ public class Main {
                             pedido.confirmarPedido();
                             System.out.println("Pagando pedido:");
 
-                            System.out.println("Ingresar cupon de descuento (Opciones: DESC10, PROMO25, DESC50): ");
-                            String cupon = scanner.next();
+                            System.out.println("Ingresar cupon de descuento (Opciones: DESC10, PROMO25, DESC50) " +
+                                    "\n(Dejar en blanco si no hay cupón): ");
+
+                            scanner.nextLine();
+                            String cupon = scanner.nextLine();
 
                             pedido.setCupon(cupon);
 
+                            float temp = pedido.calcularTotal();
                             System.out.println("Precio sin descuento: " + pedido.getTotalSinDescuento());
-                            System.out.println("Precio con descuento aplicado (total a pagar): " + pedido.calcularTotal());
+                            System.out.println("Precio con descuento aplicado (total a pagar): " + temp);
 
                             System.out.println("Elegir método de pago: ");
 
@@ -189,34 +194,41 @@ public class Main {
                     break;
 
                 case 6:
-                    System.out.println("Cambiar estado de pedido:");
-                    System.out.println("Ingrese el nuevo estado del pedido: ");
-                    System.out.println("1. En preparación");
-                    System.out.println("2. Listo para servir");
-                    System.out.println("3. Entregado");
-                    int nuevoEstado = scanner.nextInt();
-                    switch (nuevoEstado){
-                        case 1:
-                            pedido.cambiarEstado(EstadoPedido.EN_PREPARACION);
-                            break;
-                        case 2:
-                            pedido.cambiarEstado(EstadoPedido.LISTO_PARA_ENTREGAR);
-                            break;
-                        case 3:
-                            pedido.cambiarEstado(EstadoPedido.ENTREGADO);
-                            break;
-                        default:
-                            System.out.println("Opción inválida.");
-                            break;
+
+                    if (!pedido.estaConfirmado()) {
+                        System.out.println("El pedido no está confirmado.");
+                    } else {
+                        System.out.println("Cambiar estado de pedido:");
+                        System.out.println("Ingrese el nuevo estado del pedido: ");
+                        System.out.println("1. En preparación");
+                        System.out.println("2. Listo para servir");
+                        System.out.println("3. Entregado");
+
+                        int nuevoEstado = scanner.nextInt();
+
+                        switch (nuevoEstado){
+                            case 1:
+                                pedido.cambiarEstado(EstadoPedido.EN_PREPARACION);
+                                break;
+                            case 2:
+                                pedido.cambiarEstado(EstadoPedido.LISTO_PARA_ENTREGAR);
+                                break;
+                            case 3:
+                                pedido.cambiarEstado(EstadoPedido.ENTREGADO);
+                                break;
+                            default:
+                                System.out.println("Opción inválida.");
+                                break;
+                        }
                     }
                     break;
 
                 case 7:
-                    agregarItemMenu(menu, scanner);
+                    MenuManager.agregarItemMenu(menu, scanner);
                     break;
 
                 case 8:
-                    eliminarItemMenu(scanner, menu);
+                    MenuManager.eliminarItemMenu(scanner, menu);
                     break;
 
                 case 9:
@@ -234,63 +246,6 @@ public class Main {
         scanner.close();
     }
 
-    private static void eliminarItemMenu(Scanner scanner, Menu menu) {
-        System.out.println("Indique el ID del producto a eliminar:");
-        int id = scanner.nextInt();
-        boolean check = false;
-        for (ProductoMenu producto : menu.getCategoriasProductos()) {
-            if (producto.getIdProducto() == id){
-                menu.getCategoriasProductos().remove(producto);
-                System.out.println("Producto eliminado.");
-            }
-        }
-        if (!check){
-            System.out.println("Elemento no encotrado");
-        }
-    }
 
-    private static void agregarItemMenu(Menu menu, Scanner scanner) {
-
-        System.out.println("Seleccione la categoria de producto a agregar:");
-        System.out.println("1. Bebida");
-        System.out.println("2. Entrada");
-        System.out.println("3. Plato Principal");
-        System.out.println("4. Postre");
-
-        int categoria = scanner.nextInt();
-
-        int idProductoAgregar = menu.getCategoriasProductos().size();
-
-        System.out.println("Ingrese el nombre del producto:");
-        String nombreProductoAgregar = scanner.next();
-
-        String descripcionProductoAgregar = "";
-
-        System.out.println("Ingrese la descripcion del producto:");
-        while (descripcionProductoAgregar.isEmpty()){
-            descripcionProductoAgregar = scanner.nextLine();
-        }
-
-        System.out.println("Ingrese el precio del producto:");
-        float precioProductoAgregar = scanner.nextFloat();
-        switch (categoria){
-            case 1:
-                menu.getCategoriasProductos().add(new Bebida(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                break;
-            case 2:
-                menu.getCategoriasProductos().add(new Entrada(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                break;
-            case 3:
-                menu.getCategoriasProductos().add(new PlatoPrincipal(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                break;
-            case 4:
-                menu.getCategoriasProductos().add(new Postre(idProductoAgregar, nombreProductoAgregar, descripcionProductoAgregar, precioProductoAgregar));
-                break;
-            default:
-                System.out.println("Opción inválida.");
-                break;
-        }
-
-    }
 }
 

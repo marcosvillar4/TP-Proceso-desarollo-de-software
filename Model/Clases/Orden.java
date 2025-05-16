@@ -17,7 +17,11 @@ public class Orden {
 
     public float aplicarCupon(String cupon){
         this.cupon = cupon;
-        System.out.println("Cupon aplicado: " + cupon);
+        if(cupon == null || cupon.isBlank()) {
+            System.out.println("No se ingreso cupon");
+        } else{
+            System.out.println("Cupon aplicado: " + cupon);
+        }
         return validador.getDescuento(cupon);
     }
 

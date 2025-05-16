@@ -42,7 +42,11 @@ public class Pedido {
 
     public void cambiarEstado(EstadoPedido nuevoEstado) {
         this.estado = nuevoEstado;
-        if(cliente != null){
+        if(nuevoEstado == EstadoPedido.ENTREGADO){
+            System.out.println("Pedido entregado! Finalizando programa...");
+            System.exit(0);
+        }
+        if(cliente != null && estaConfirmado()){
             cliente.notificarCambioEstado(nuevoEstado);
         }
     }
