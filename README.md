@@ -72,6 +72,12 @@ El pedido debe atravesar distintos estados, desde “En espera” hasta “Entre
 - Se define la enumeración `EstadoPedido` con los posibles estados del pedido
 - `Pedido` incluye un atributo `estado`
 - Las subclases de `Empleado` (`Mesero`, `Chef`, `Administrativo`) poseen el método `cambiarEstado(pedido: Pedido)`
+
+IMPORTANTE: Consideramos que:
+- El `Mesero` solo puede cambiar el estado a "EN PREPARACION" y "ENTREGADO"
+- El `Chef` solo puede cambiar el estado a "LISTO PARA ENTREGAR"
+- El `Administrador` puede cambiar el estado de pedido a cualquier tipo. 
+
 ---
 
 ### 6. Notificaciones Automáticas

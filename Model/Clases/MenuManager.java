@@ -19,7 +19,7 @@ public class MenuManager {
     }
 
 
-    public static void eliminarItemMenu(Scanner scanner, Menu menu) {
+    public static void eliminarItemMenu(Menu menu, Scanner scanner) {
         System.out.println("Indique el ID del producto a eliminar:");
         int id = scanner.nextInt();
 

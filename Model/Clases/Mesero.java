@@ -17,7 +17,7 @@ public class Mesero extends Empleado {
             pedido.cambiarEstado(nuevoEstado);
             System.out.println("Mesero " + nombre + " cambio el estado a: " + nuevoEstado);
             notificador.enviarNotificacion(nuevoEstado);
-        } else {
+        } else{
             System.out.println("El mesero no puede cambiar el estado a: " + nuevoEstado);
         }
     }

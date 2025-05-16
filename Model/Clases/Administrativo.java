@@ -14,5 +14,9 @@ public class Administrativo extends Empleado {
     public void cambiarEstadoPedido(Pedido pedido, EstadoPedido nuevoEstado) {
         pedido.cambiarEstado(nuevoEstado);
         System.out.println("Administrativo cambio el estado: " + nuevoEstado);
+        if(nuevoEstado == EstadoPedido.LISTO_PARA_ENTREGAR){
+            notificador.enviarNotificacion(nuevoEstado);
+            System.out.println("Notificando al mesero que el pedido esta listo para entregar");
+        }
     }
 }

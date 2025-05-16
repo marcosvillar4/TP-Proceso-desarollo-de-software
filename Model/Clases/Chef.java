@@ -21,5 +21,8 @@ public class Chef extends Empleado {
         pedido.cambiarEstado(nuevoEstado);
         notificador.enviarNotificacion(nuevoEstado);
         System.out.println("Chef cambio el estado: " + nuevoEstado);
+        if(nuevoEstado == EstadoPedido.LISTO_PARA_ENTREGAR){
+            System.out.println("Notificando al mesero que el pedido esta listo para entregar");
+        }
     }
 }

@@ -143,7 +143,7 @@ public class Main {
                 case 5:
                     if (!pedido.estaConfirmado()) {
                         if(pedido.getProductos().isEmpty()){
-                                System.out.println("Error. El pedido está vacío.");
+                                System.out.println("Error: El pedido está vacío");
                         } else {
                             pedido.confirmarPedido();
                             System.out.println("Pagando pedido:");
@@ -169,7 +169,7 @@ public class Main {
                             while (metodoPago != 1 & metodoPago != 2) {
                                 metodoPago = scanner.nextInt();
                                 if (metodoPago != 1 & metodoPago != 2) {
-                                    System.out.println("Opción no válida. Por favor, elija 1 o 2.");
+                                    System.out.println("Opción no válida. Por favor, elija 1 o 2");
                                 }
                             }
 
@@ -199,6 +199,39 @@ public class Main {
                         System.out.println("El pedido no está confirmado.");
                     } else {
                         System.out.println("Cambiar estado de pedido:");
+
+                        System.out.println("INTER ONLY Poner tipo de empleado: ");
+                        System.out.println("1. Chef");
+                        System.out.println("2. Administrativo");
+                        System.out.println("3. Mesero");
+
+                        int tipo = scanner.nextInt();
+
+                        boolean valido = true;
+
+                        switch (tipo) {
+                            case 1:
+                                System.out.println("Bienvenido " + chef1.getNombre());
+                                break;
+
+                            case 2:
+                                System.out.println("Bienvenido " + administrativo1.getNombre());
+                                break;
+
+                            case 3:
+                                System.out.println("Bienvenido " + mesero1.getNombre());
+                                break;
+
+                            default:
+                                System.out.println("Opcion no valida");
+                                valido = false;
+                                break;
+                        }
+
+                        if (!valido){
+                            break;
+                        }
+
                         System.out.println("Ingrese el nuevo estado del pedido: ");
                         System.out.println("1. En preparación");
                         System.out.println("2. Listo para servir");
@@ -208,16 +241,34 @@ public class Main {
 
                         switch (nuevoEstado){
                             case 1:
-                                pedido.cambiarEstado(EstadoPedido.EN_PREPARACION);
+                                if(tipo == 1){
+                                    chef1.cambiarEstadoPedido(pedido, EstadoPedido.EN_PREPARACION);
+                                }else if(tipo == 2){
+                                    administrativo1.cambiarEstadoPedido(pedido, EstadoPedido.EN_PREPARACION);
+                                }else{
+                                    mesero1.cambiarEstadoPedido(pedido, EstadoPedido.EN_PREPARACION);
+                                }
                                 break;
                             case 2:
-                                pedido.cambiarEstado(EstadoPedido.LISTO_PARA_ENTREGAR);
+                                if(tipo == 1){
+                                    chef1.cambiarEstadoPedido(pedido, EstadoPedido.LISTO_PARA_ENTREGAR);
+                                }else if(tipo == 2){
+                                    administrativo1.cambiarEstadoPedido(pedido, EstadoPedido.LISTO_PARA_ENTREGAR);
+                                }else {
+                                    mesero1.cambiarEstadoPedido(pedido, EstadoPedido.LISTO_PARA_ENTREGAR);
+                                }
                                 break;
                             case 3:
-                                pedido.cambiarEstado(EstadoPedido.ENTREGADO);
+                                if(tipo == 1){
+                                    chef1.cambiarEstadoPedido(pedido, EstadoPedido.ENTREGADO);
+                                }else if(tipo == 2){
+                                    administrativo1.cambiarEstadoPedido(pedido, EstadoPedido.ENTREGADO);
+                                }else {
+                                    mesero1.cambiarEstadoPedido(pedido, EstadoPedido.ENTREGADO);
+                                }
                                 break;
                             default:
-                                System.out.println("Opción inválida.");
+                                System.out.println("Opción inválida");
                                 break;
                         }
                     }
@@ -228,24 +279,20 @@ public class Main {
                     break;
 
                 case 8:
-                    MenuManager.eliminarItemMenu(scanner, menu);
+                    MenuManager.eliminarItemMenu(menu, scanner);
                     break;
 
                 case 9:
-                    System.out.println("Saliendo del sistema.");
+                    System.out.println("Saliendo del sistema");
                     JsonWriter.writeFile(menu,menuFile);
                     break;
                     
                 default:
-                    System.out.println("Opción inválida. Por favor, elija una opción válida.");
+                    System.out.println("Opción inválida. Por favor, elija una opción válida");
                     break;
             }
-
         }
 
         scanner.close();
     }
-
-
 }
-

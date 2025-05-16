@@ -46,8 +46,12 @@ public class Pedido {
             System.out.println("Pedido entregado! Finalizando programa...");
             System.exit(0);
         }
-        if(cliente != null && estaConfirmado()){
+        if(cliente != null && estaConfirmado() || this.estado != nuevoEstado){
             cliente.notificarCambioEstado(nuevoEstado);
+        }
+
+        if (this.estado == nuevoEstado){
+            System.out.println("El nuevo estado es el mismo que el anterior");
         }
     }
 
