@@ -14,6 +14,7 @@ public class ValidadorDescuento {
         cuponesValidos.put("DESC10", 0.9f);
         cuponesValidos.put("PROMO25", 0.75f);
         cuponesValidos.put("DESC50", 0.5f);
+        cuponesValidos.put("EFECTIVO", 0.9f);
     }
     public boolean validarDescuento(String cupon) {
         return cuponesValidos.containsKey(cupon.toUpperCase());

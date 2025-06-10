@@ -4,10 +4,14 @@ import Clases.Json.JsonReader;
 import Clases.Json.JsonWriter;
 import Clases_Abstractas.ProductoMenu;
 import Enum.*;
+import Interfaces.IPagable;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 import java.nio.file.Files;
+import java.util.random.RandomGenerator;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -64,7 +68,8 @@ public class Main {
             System.out.println("6. Cambiar estado de pedido");
             System.out.println("7. Agregar item a menú");
             System.out.println("8. Sacar item del menú");
-            System.out.println("9. Salir");
+            System.out.println("9. Cancelar pedido");
+            System.out.println("10. Salir");
             opcion = scanner.nextInt();
 
             switch (opcion){
@@ -164,29 +169,42 @@ public class Main {
 
                             System.out.println("1. Tarjeta de Crédito");
                             System.out.println("2. Tarjeta de Debito");
+                            System.out.println("3. MercadoPago");
+                            System.out.println("4. Google Pay");
+                            System.out.println("5. Efectivo (10% OFF)");
 
                             int metodoPago = 0;
-                            while (metodoPago != 1 & metodoPago != 2) {
+                            boolean check = false;
+                            while (!check){
                                 metodoPago = scanner.nextInt();
-                                if (metodoPago != 1 & metodoPago != 2) {
-                                    System.out.println("Opción no válida. Por favor, elija 1 o 2");
-                                }
+                                if (metodoPago >= 1 && metodoPago <= 5)
+                                    check = true;
                             }
 
-                            System.out.println("Ingrese el numero de tarjeta: ");
-                            String numeroTarjeta = scanner.next();
-                            System.out.println("Ingrese el nombre del titular: ");
-                            String nombreTitular = scanner.next();
-                            System.out.println("Ingrese la fecha de vencimiento: ");
-                            String fechaVencimiento = scanner.next();
-                            System.out.println("Ingrese el CVV: ");
-                            String cvv = scanner.next();
+                            Random rand = new Random();
 
-                            if (metodoPago == 1){
-                                c1.pagarPedido(pedido, new TarjetaCredito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
-                            } else {
-                                c1.pagarPedido(pedido, new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular));
+                            switch (metodoPago){
+                                case 1:
+                                    c1.pagarPedido(pedido,ingresoTarjeta(scanner, 1));
+                                    break;
+
+                                case 2:
+                                    c1.pagarPedido(pedido,ingresoTarjeta(scanner, 2));
+                                    break;
+
+                                case 3:
+                                    System.out.println("Link de pago: https://mercadopago.com/pago/" + rand.nextInt(100000, 99999999));
+                                    break;
+
+                                case 4:
+                                    System.out.println("Link de pago: https://googlepay.com/pay/" + rand.nextInt(100000, 99999999));
+                                    break;
+
+                                case 5:
+                                    pedido.setCupon("EFECTIVO");
+                                    System.out.println("Total a pagar: " + pedido.getTotal());
                             }
+
                         }
                     } else {
                         System.out.println("Pedido ya esta confirmado");
@@ -268,7 +286,7 @@ public class Main {
                                 }
                                 break;
                             default:
-                                System.out.println("Opción inválida");
+                                System.out.println("Opción inválida. Intente de nuevo.");
                                 break;
                         }
                     }
@@ -283,6 +301,14 @@ public class Main {
                     break;
 
                 case 9:
+                    if (pedido.getEstado().equals(EstadoPedido.EN_ESPERA) || pedido.getEstado().equals(EstadoPedido.EN_PREPARACION)) {
+                        System.out.println("Pedido Cancelado!");
+                        pedido = new Pedido(c1);
+                    } else {
+                        System.out.println("No es posible cancelar el pedido");
+                    }
+
+                case 10:
                     System.out.println("Saliendo del sistema");
                     JsonWriter.writeFile(menu,menuFile);
                     break;
@@ -294,5 +320,21 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    public static IPagable ingresoTarjeta(Scanner scanner, int opcion) {
+        System.out.println("Ingrese el numero de tarjeta: ");
+        String numeroTarjeta = scanner.next();
+        System.out.println("Ingrese el nombre del titular: ");
+        String nombreTitular = scanner.next();
+        System.out.println("Ingrese la fecha de vencimiento: ");
+        String fechaVencimiento = scanner.next();
+        System.out.println("Ingrese el CVV: ");
+        String cvv = scanner.next();
+        if (opcion == 1){
+            return new TarjetaCredito(numeroTarjeta,fechaVencimiento, cvv, nombreTitular);
+        } else {
+            return new TarjetaDebito(numeroTarjeta,fechaVencimiento, cvv, nombreTitular);
+        }
     }
 }

@@ -14,6 +14,8 @@ public class Pedido {
     private String cupon;
     private float total;
     private float totalSinDescuento;
+    private Date fechaEntrega;
+    private boolean programado;
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
@@ -53,6 +55,12 @@ public class Pedido {
         if (this.estado == nuevoEstado){
             System.out.println("El nuevo estado es el mismo que el anterior");
         }
+    }
+
+    public void programarPedido(Date fechaProgramada){
+        this.fechaEntrega = fechaProgramada;
+        this.programado = true;
+        this.estado = EstadoPedido.PROGRAMADO;
     }
 
     public EstadoPedido getEstado() {
