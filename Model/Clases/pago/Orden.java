@@ -1,4 +1,6 @@
-package Clases;
+package Clases.pago;
+
+import Clases.pedido.Pedido;
 
 public class Orden {
     private static int contador = 0;
@@ -7,11 +9,13 @@ public class Orden {
     private String cupon;
     private Pedido pedido;
     private ValidadorDescuento validador;
+    private boolean delivery;
 
-    public Orden(Pedido pedido){
+    public Orden(Pedido pedido, boolean delivery) {
         this.numero = "ORD-" + (++contador);
         this.pedido = pedido;
         this.validador = new ValidadorDescuento();
+        this.delivery = delivery;
     }
 
 
@@ -64,5 +68,9 @@ public class Orden {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public boolean esDelivery() {
+        return delivery;
     }
 }

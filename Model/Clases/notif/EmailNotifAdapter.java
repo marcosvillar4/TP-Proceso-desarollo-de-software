@@ -1,4 +1,4 @@
-package Clases;
+package Clases.notif;
 import Enum.EstadoPedido;
 import Interfaces.INotificacion;
 

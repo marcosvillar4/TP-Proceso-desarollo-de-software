@@ -1,7 +1,7 @@
 package Clases_Abstractas;
 
-import Clases.EmailNotifAdapter;
-import Clases.Pedido;
+import Clases.notif.EmailNotifAdapter;
+import Clases.pedido.Pedido;
 import Interfaces.*;
 import Enum.EstadoPedido;
 

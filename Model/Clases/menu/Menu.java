@@ -1,4 +1,4 @@
-package Clases;
+package Clases.menu;
 
 import java.util.*;
 

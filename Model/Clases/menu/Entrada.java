@@ -1,4 +1,4 @@
-package Clases;
+package Clases.menu;
 
 import Clases_Abstractas.ProductoMenu;
 

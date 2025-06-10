@@ -1,11 +1,9 @@
 package Clases_Abstractas;
 
-import Clases.*;
-import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import Clases.menu.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.util.*;
 @JsonTypeInfo(
@@ -26,6 +24,7 @@ public abstract class ProductoMenu {
     private String descripcion;
     private float precio;
     private List<Ingrediente> listaIngredientes;
+    private int tiempoPreparacion;
 
     public ProductoMenu(int id, String nombre, String descripcion, float precio) {
         this.idProducto = id;
@@ -95,4 +94,11 @@ public abstract class ProductoMenu {
     public void setListaIngredientes(List<Ingrediente> listaIngredientes) {
         this.listaIngredientes = listaIngredientes;
     }
+    public int getTiempoPreparacion() {
+        return tiempoPreparacion;
+    }
+    public void setTiempoPreparacion(int tiempoPreparacion) {
+        this.tiempoPreparacion = tiempoPreparacion;
+    }
+
 }

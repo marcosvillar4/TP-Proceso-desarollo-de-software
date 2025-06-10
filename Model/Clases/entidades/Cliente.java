@@ -1,6 +1,9 @@
-package Clases;
+package Clases.entidades;
 
-import Clases_Abstractas.ProductoMenu;
+import Clases.notif.EmailNotifAdapter;
+import Clases.pago.Factura;
+import Clases.pago.FacturaFactory;
+import Clases.pedido.Pedido;
 import Interfaces.INotificacion;
 import Interfaces.IPagable;
 import Enum.EstadoPedido;

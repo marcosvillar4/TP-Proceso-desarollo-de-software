@@ -1,4 +1,6 @@
-package Clases;
+package Clases.pago;
+
+import Clases.pedido.Pedido;
 
 public class FacturaFactory {
 

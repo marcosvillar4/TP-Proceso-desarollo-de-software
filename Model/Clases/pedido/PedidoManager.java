@@ -1,11 +1,12 @@
-package Clases;
+package Clases.pedido;
 
-import Clases.Json.JsonReader;
 import Clases_Abstractas.ProductoMenu;
 
 public class PedidoManager {
     //Singleton
     private static PedidoManager instancia;
+
+
 
     private PedidoManager() {
     }
@@ -24,4 +25,6 @@ public class PedidoManager {
     public static void eliminarProducto(ProductoMenu producto, Pedido pedido) {
         pedido.getProductos().remove(producto);
     }
+
+
 }

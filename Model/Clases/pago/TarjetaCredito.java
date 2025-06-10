@@ -1,4 +1,4 @@
-package Clases;
+package Clases.pago;
 
 import Interfaces.IPagable;
 import Clases_Abstractas.Tarjeta;

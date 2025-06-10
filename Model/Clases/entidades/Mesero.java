@@ -1,7 +1,7 @@
-package Clases;
+package Clases.entidades;
 
+import Clases.pedido.Pedido;
 import Clases_Abstractas.Empleado;
-import Interfaces.INotificacion;
 import Enum.EstadoPedido;
 
 public class Mesero extends Empleado {

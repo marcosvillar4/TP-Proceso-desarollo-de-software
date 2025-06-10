@@ -1,4 +1,4 @@
-package Clases;
+package Clases.menu;
 
 public class Ingrediente {
     private String nombre;
