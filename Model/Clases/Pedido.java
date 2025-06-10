@@ -57,12 +57,6 @@ public class Pedido {
         }
     }
 
-    public void programarPedido(Date fechaProgramada){
-        this.fechaEntrega = fechaProgramada;
-        this.programado = true;
-        this.estado = EstadoPedido.PROGRAMADO;
-    }
-
     public EstadoPedido getEstado() {
         return estado;
     }
