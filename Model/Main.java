@@ -15,22 +15,13 @@ import Clases.menu.Menu;
 import Clases.pago.TarjetaCredito;
 import Clases.pago.TarjetaDebito;
 import Clases.pedido.Pedido;
-import Clases.pedido.PedidoFactory;
 import Clases.pedido.PedidoManager;
-import clases_abstractas.CalculadorTiempoStrategy;
 import clases_abstractas.Plataforma;
 import clases_abstractas.ProductoMenu;
 import enums.*;
 import interfaces.IPagable;
-
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Random;
 import java.util.Scanner;
 import java.nio.file.Files;
 
@@ -244,8 +235,6 @@ public class Main {
                                                     checkPago = true;
                                             }
 
-                                            Random rand = new Random();
-
                                             switch (metodoPago) {
                                                 case 1:
                                                     c1.pagarPedido(pedido, ingresoTarjeta(scanner, 1));
@@ -362,6 +351,7 @@ public class Main {
                                                 } else {
                                                     mesero1.cambiarEstadoPedido(pedido, EstadoPedido.ENTREGADO);
                                                 }
+                                                opcion = 9;
                                                 break;
                                             default:
                                                 System.out.println("Opción inválida. Intente de nuevo.");
@@ -491,7 +481,6 @@ public class Main {
 
         scanner.close();
     }
-
 
     public static IPagable ingresoTarjeta(Scanner scanner, int opcion) {
         System.out.println("Ingrese el numero de tarjeta: ");

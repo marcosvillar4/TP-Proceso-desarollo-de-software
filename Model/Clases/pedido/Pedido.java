@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
+import Clases.entidades.Restaurante;
 import Clases.pago.Orden;
 import Clases.entidades.Cliente;
 import clases_abstractas.CalculadorTiempoStrategy;
@@ -56,17 +57,20 @@ public class Pedido {
     }
 
     public void cambiarEstado(EstadoPedido nuevoEstado) {
-        this.estado = nuevoEstado;
-        if(nuevoEstado == EstadoPedido.ENTREGADO){
-            System.out.println("Pedido entregado! Finalizando programa...");
-            System.exit(0);
-        }
-        if(cliente != null && estaConfirmado() || this.estado != nuevoEstado){
-            cliente.notificarCambioEstado(nuevoEstado);
-        }
 
         if (this.estado == nuevoEstado){
             System.out.println("El nuevo estado es el mismo que el anterior");
+        } else {
+            this.estado = nuevoEstado;
+        }
+
+        if(nuevoEstado == EstadoPedido.ENTREGADO){
+            System.out.println("Pedido entregado! Finalizando programa...");
+            Restaurante.getInstancia().eliminarPedido(this);
+        }
+
+        if(cliente != null && estaConfirmado() || this.estado != nuevoEstado){
+            cliente.notificarCambioEstado(nuevoEstado);
         }
     }
 
