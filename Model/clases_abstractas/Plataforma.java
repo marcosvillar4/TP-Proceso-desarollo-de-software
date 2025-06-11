@@ -31,4 +31,9 @@ public abstract class Plataforma {
             throw new RuntimeException(e);
         }
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
 }

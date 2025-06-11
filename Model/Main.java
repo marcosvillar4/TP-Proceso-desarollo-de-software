@@ -206,15 +206,18 @@ public class Main {
                                         } else {
                                             pedido.confirmarPedido();
                                             System.out.println("Pagando pedido:");
+                                            if (pedido.getPlataforma().getNombre().equals("AppMovil")) {
+                                                System.out.println("Ingresar cupon de descuento (Opciones: DESC10, PROMO25, DESC50) " +
+                                                        "\n(Dejar en blanco si no hay cupón): ");
 
-                                            System.out.println("Ingresar cupon de descuento (Opciones: DESC10, PROMO25, DESC50) " +
-                                                    "\n(Dejar en blanco si no hay cupón): ");
+                                                scanner.nextLine();
+                                                String cupon = scanner.nextLine();
 
-                                            scanner.nextLine();
-                                            String cupon = scanner.nextLine();
-
-                                            pedido.setCupon(cupon);
-
+                                                pedido.setCupon(cupon);
+                                            }
+                                            else {
+                                                pedido.setCupon("");
+                                            }
                                             float temp = pedido.calcularTotal();
                                             System.out.println("Precio sin descuento: " + pedido.getTotalSinDescuento());
                                             System.out.println("Precio con descuento aplicado (total a pagar): " + temp);
