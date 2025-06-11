@@ -1,6 +1,7 @@
 package Clases.pedido;
 
 import clases_abstractas.ProductoMenu;
+import enums.EstadoPedido;
 
 public class PedidoManager {
     //Singleton
@@ -19,7 +20,11 @@ public class PedidoManager {
     }
 
     public static void agregarProducto(ProductoMenu producto, Pedido pedido) {
-        pedido.getProductos().add(producto);
+        if(pedido.getEstado() != EstadoPedido.EN_ESPERA) {
+            pedido.getProductos().add(producto);
+        } else{
+            System.out.println("Solo se pueden agregar productos si el estado es del pedido está EN ESPERA");
+        }
     }
 
     public static void eliminarProducto(ProductoMenu producto, Pedido pedido) {

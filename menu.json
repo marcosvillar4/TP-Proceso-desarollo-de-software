@@ -5,48 +5,63 @@
     "nombre" : "coca-cola",
     "descripcion" : "15",
     "precio" : 100.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   }, {
     "type" : "Bebida",
     "idProducto" : 10,
     "nombre" : "agua",
     "descripcion" : "10",
     "precio" : 10.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   }, {
     "type" : "Postre",
     "idProducto" : 11,
     "nombre" : "Flan",
     "descripcion" : "Es rico",
     "precio" : 100.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   }, {
     "type" : "PlatoPrincipal",
     "idProducto" : 12,
     "nombre" : "Fideos",
     "descripcion" : "A la bolgnesa",
     "precio" : 100.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   }, {
     "type" : "Entrada",
     "idProducto" : 13,
     "nombre" : "Tortilla",
     "descripcion" : " española",
     "precio" : 1000.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   }, {
     "type" : "Entrada",
     "idProducto" : 14,
     "nombre" : "Provoleta",
     "descripcion" : "Con morrón",
     "precio" : 12.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   }, {
     "type" : "Postre",
     "idProducto" : 15,
     "nombre" : "Pasta frola",
     "descripcion" : "",
     "precio" : 500.0,
-    "listaIngredientes" : [ ]
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 16,
+    "nombre" : "Cerveza Heineken",
+    "descripcion" : "",
+    "precio" : 1500.0,
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0
   } ]
 }

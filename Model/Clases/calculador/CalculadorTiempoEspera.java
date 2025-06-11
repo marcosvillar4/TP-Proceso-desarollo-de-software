@@ -8,7 +8,7 @@ public class CalculadorTiempoEspera extends CalculadorTiempoStrategy {
     @Override
     public int calcularTiempoRestante(Pedido pedido) {
         int pedidosTotales = Restaurante.getInstancia().getCantidadPedidos();
-        return (pedidosTotales >= 10) ? 20 : 5;
+        return (pedidosTotales / 10) * 20 + 5;
     }
 }
 

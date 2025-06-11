@@ -11,6 +11,7 @@ public class PedidoFactory {
         }
 
         Pedido pedido = new Pedido(cliente);
+        pedido.setPlataforma(plataforma);
         return pedido;
     }
 }

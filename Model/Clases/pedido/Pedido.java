@@ -1,6 +1,8 @@
 package Clases.pedido;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import Clases.pago.Orden;
@@ -23,7 +25,6 @@ public class Pedido {
     private float total;
     private float totalSinDescuento;
     private Plataforma plataforma;
-    private boolean programado;
     private LocalDateTime horarioProgramado;
     private CalculadorTiempoStrategy calculadorTiempo;
     private boolean esDelivery;
@@ -101,13 +102,37 @@ public class Pedido {
                 costoExtra += producto.getPrecio();
             }
 
-            System.out.println("Cobro adicional por producto: $" + costoExtra);
+            System.out.println("Cobro extra: $" + costoExtra);
             this.estado = EstadoPedido.CANCELADO;
             return true;
         }
 
-        System.out.println("No se puede cancelar el pedido en estado " + estado);
+        System.out.println("El pedido solo es cancelable si se encuentra en preparación o en espera. Actualmente: " + estado);
         return false;
+    }
+
+    public void programarEntrega(Scanner scanner) {
+        LocalDateTime fechaProgramada;
+
+        while (true) {
+            try {
+                System.out.println("Ingrese la fecha de entrega programada (formato: dd/MM/yyyy HH:mm):");
+                String input = scanner.nextLine();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                fechaProgramada = LocalDateTime.parse(input, formatter);
+
+                if (fechaProgramada.isAfter(LocalDateTime.now())) {
+                    this.horarioProgramado = fechaProgramada;
+                    this.estado = EstadoPedido.PROGRAMADO;
+                    return;
+                } else {
+                    System.out.println("La fecha debe ser posterior al momento actual.");
+                }
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato inválido. Intente nuevamente.");
+            }
+        }
     }
 
     //GETTERS Y SETTERS
@@ -144,12 +169,6 @@ public class Pedido {
     public float getTotalSinDescuento(){
         return totalSinDescuento;
     }
-    public boolean isProgramado() {
-        return programado;
-    }
-    public void setProgramado(boolean programado) {
-        this.programado = programado;
-    }
     public LocalDateTime getHorarioProgramado() {
         return horarioProgramado;
     }
@@ -173,5 +192,11 @@ public class Pedido {
     }
     public void setEntrega(Entrega entrega) {
         this.entrega = entrega;
+    }
+    public Plataforma getPlataforma() {
+        return plataforma;
+    }
+    public void setPlataforma(Plataforma plataforma) {
+        this.plataforma = plataforma;
     }
 }

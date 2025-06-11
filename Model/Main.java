@@ -1,4 +1,9 @@
+import Clases.calculador.CalculadorTiempoEspera;
+import Clases.calculador.CalculadorTiempoListo;
+import Clases.calculador.CalculadorTiempoPreparacion;
 import Clases.menu.MenuManager;
+import Clases.pago.GooglePay;
+import Clases.pago.MercadoPago;
 import Clases.plataforma.AppMovil;
 import Clases.plataforma.Totem;
 import Clases.entidades.*;
@@ -12,6 +17,7 @@ import Clases.pago.TarjetaDebito;
 import Clases.pedido.Pedido;
 import Clases.pedido.PedidoFactory;
 import Clases.pedido.PedidoManager;
+import clases_abstractas.CalculadorTiempoStrategy;
 import clases_abstractas.Plataforma;
 import clases_abstractas.ProductoMenu;
 import enums.*;
@@ -19,6 +25,11 @@ import interfaces.IPagable;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Random;
 import java.util.Scanner;
 import java.nio.file.Files;
@@ -62,7 +73,7 @@ public class Main {
 
         // INTERFAZ DE TERMINAL PARA PROBAR FUNCIONES
 
-        System.out.println("Bienvenido al sistema de gestión de pedidos de " + Restaurante.getInstancia().getNombreRestaurante() + ".");
+        System.out.println("Bienvenido al sistema de gestión de pedidos de " + Restaurante.getInstancia() + ".");
         System.out.println("Bienvenido " + c1.getNombre() + ".");
 
         int menuUI = 0;
@@ -108,8 +119,11 @@ public class Main {
                         }
                     }
                     if (check){
+
+                        System.out.println("Administrando pedido de: " + pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellido() + " ID: " + pedido.getId());
+
                         int opcion = 0;
-                        while (opcion != 8){
+                        while (opcion != 9){
                             System.out.println("1. Mostrar menú");
                             System.out.println("2. Agregar producto");
                             System.out.println("3. Sacar producto");
@@ -242,16 +256,30 @@ public class Main {
                                                     break;
 
                                                 case 3:
-                                                    System.out.println("Link de pago: https://mercadopago.com/pago/" + rand.nextInt(100000, 99999999));
+                                                    c1.pagarPedido(pedido, new MercadoPago());
                                                     break;
 
                                                 case 4:
-                                                    System.out.println("Link de pago: https://googlepay.com/pay/" + rand.nextInt(100000, 99999999));
+                                                    c1.pagarPedido(pedido, new GooglePay());
                                                     break;
 
                                                 case 5:
                                                     pedido.setCupon("EFECTIVO");
+                                                    pedido.calcularTotal();
                                                     System.out.println("Total a pagar: " + pedido.getTotal());
+                                                    break;
+                                            }
+                                            System.out.println("Elegir formato de pedido: ");
+                                            System.out.println("1. Delivery");
+                                            System.out.println("2. Para comer en el restaurante");
+
+                                            int formatoPedido = scanner.nextInt();
+                                            switch (formatoPedido){
+                                                case 1:
+                                                    pedido.setDelivery(true);
+                                                    break;
+                                                case 2:
+                                                    pedido.setDelivery(false);
                                                     break;
                                             }
 
@@ -342,11 +370,39 @@ public class Main {
                                     }
                                     break;
 
-
-
-
+                                case 7:
+                                    System.out.println("Cancelando pedido...");
+                                    if(pedido.cancelarPedido()){
+                                        Restaurante.getInstancia().eliminarPedido(pedido);
+                                        System.out.println("Pedido cancelado.");
+                                        opcion = 9;
+                                    }
+                                    break;
 
                                 case 8:
+                                    System.out.println("Calculando tiempo...");
+                                    switch(pedido.getEstado()){
+                                        case EstadoPedido.EN_ESPERA:
+                                            CalculadorTiempoEspera calcEspera = new CalculadorTiempoEspera();
+                                            System.out.println("Tiempo restante hasta que el pedido empiece a prepararse: " + calcEspera.calcularTiempoRestante(pedido) + " minutos.");
+                                            break;
+                                        case EstadoPedido.EN_PREPARACION:
+                                            CalculadorTiempoPreparacion calcPreparacion = new CalculadorTiempoPreparacion();
+                                            System.out.println("Tiempo restante para que el pedido esté listo: " + calcPreparacion.calcularTiempoRestante(pedido) + " minutos.");
+                                            break;
+                                        case EstadoPedido.LISTO_PARA_ENTREGAR:
+                                            CalculadorTiempoListo calcListo = new CalculadorTiempoListo();
+                                            System.out.println("El pedido está listo para entregar.");
+                                            if (pedido.isDelivery()){
+                                                System.out.println("Tiempo restante para entregar el pedido: " + calcListo.calcularTiempoRestante(pedido) + " minutos.");
+                                            }
+                                            break;
+                                        default:
+                                            System.out.println("Error. El pedido no está confirmado.");
+                                            break;
+                                    }
+                                    break;
+                                case 9:
                                     System.out.println("Saliendo del pedido...");
                                     JsonWriter.writeFile(menu, menuFile);
                                     break;
@@ -375,11 +431,24 @@ public class Main {
                         System.out.println("Correo: ");
                         String correo = scanner.next();
 
+                        pedido = plat.generarPedido(new Cliente(nombre, apellido, dni, correo));
+                        Restaurante.getInstancia().agregarPedido(pedido);
 
-                        Restaurante.getInstancia().agregarPedido(plat.generarPedido(new Cliente(nombre, apellido, dni, correo)));
+                        System.out.println("Programar pedido?");
+                        String progrPedido = scanner.nextLine();
+
+                        while (!progrPedido.equalsIgnoreCase("s") && !progrPedido.equalsIgnoreCase("n")) {
+                            System.out.println("Ingresar 'S'/'N' para continuar");
+                            progrPedido = scanner.nextLine();
+                        }
+                        if (progrPedido.equalsIgnoreCase("s")) {
+                            System.out.println("Programando pedido...");
+                            pedido.programarEntrega(scanner);
+                            System.out.println("Pedido programado con éxito.");
+                        }
 
                     } else {
-                        System.out.println("Plataforma no existe");
+                        System.out.println("No hay ninguna plataforma seleccionada.");
                     }
                     break;
 
@@ -422,6 +491,7 @@ public class Main {
 
         scanner.close();
     }
+
 
     public static IPagable ingresoTarjeta(Scanner scanner, int opcion) {
         System.out.println("Ingrese el numero de tarjeta: ");
