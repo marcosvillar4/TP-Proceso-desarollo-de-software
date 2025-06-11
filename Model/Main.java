@@ -235,13 +235,36 @@ public class Main {
                                                     checkPago = true;
                                             }
 
-                                            switch (metodoPago) {
+                                            String numeroTarjeta;
+                                            String nombreTitular;
+                                            String fechaVencimiento;
+                                            String cvv;
+
+                                            switch (metodoPago){
                                                 case 1:
-                                                    c1.pagarPedido(pedido, ingresoTarjeta(scanner, 1));
+                                                    System.out.println("Ingrese el numero de tarjeta: ");
+                                                    numeroTarjeta = scanner.next();
+                                                    System.out.println("Ingrese el nombre del titular: ");
+                                                    nombreTitular = scanner.next();
+                                                    System.out.println("Ingrese la fecha de vencimiento: ");
+                                                    fechaVencimiento = scanner.next();
+                                                    System.out.println("Ingrese el CVV: ");
+                                                    cvv = scanner.next();
+                                                    TarjetaCredito tarjetaCredito = new TarjetaCredito(numeroTarjeta,fechaVencimiento, cvv, nombreTitular);
+                                                    c1.pagarPedido(pedido, tarjetaCredito);
                                                     break;
 
                                                 case 2:
-                                                    c1.pagarPedido(pedido, ingresoTarjeta(scanner, 2));
+                                                    System.out.println("Ingrese el numero de tarjeta: ");
+                                                    numeroTarjeta = scanner.next();
+                                                    System.out.println("Ingrese el nombre del titular: ");
+                                                    nombreTitular = scanner.next();
+                                                    System.out.println("Ingrese la fecha de vencimiento: ");
+                                                    fechaVencimiento = scanner.next();
+                                                    System.out.println("Ingrese el CVV: ");
+                                                    cvv = scanner.next();
+                                                    TarjetaDebito tarjetaDebito = new TarjetaDebito(numeroTarjeta, fechaVencimiento, cvv, nombreTitular);
+                                                    c1.pagarPedido(pedido, tarjetaDebito);
                                                     break;
 
                                                 case 3:
@@ -480,21 +503,5 @@ public class Main {
         }
 
         scanner.close();
-    }
-
-    public static IPagable ingresoTarjeta(Scanner scanner, int opcion) {
-        System.out.println("Ingrese el numero de tarjeta: ");
-        String numeroTarjeta = scanner.next();
-        System.out.println("Ingrese el nombre del titular: ");
-        String nombreTitular = scanner.next();
-        System.out.println("Ingrese la fecha de vencimiento: ");
-        String fechaVencimiento = scanner.next();
-        System.out.println("Ingrese el CVV: ");
-        String cvv = scanner.next();
-        if (opcion == 1){
-            return new TarjetaCredito(numeroTarjeta,fechaVencimiento, cvv, nombreTitular);
-        } else {
-            return new TarjetaDebito(numeroTarjeta,fechaVencimiento, cvv, nombreTitular);
-        }
     }
 }
