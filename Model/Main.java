@@ -1,18 +1,21 @@
+import Clases.menu.MenuManager;
+import Clases.plataforma.AppMovil;
+import Clases.plataforma.Totem;
 import Clases.entidades.*;
 import Clases.Json.JsonManager;
 import Clases.Json.JsonReader;
 import Clases.Json.JsonWriter;
 import Clases.menu.Ingrediente;
 import Clases.menu.Menu;
-import Clases.menu.MenuManager;
 import Clases.pago.TarjetaCredito;
 import Clases.pago.TarjetaDebito;
 import Clases.pedido.Pedido;
 import Clases.pedido.PedidoFactory;
 import Clases.pedido.PedidoManager;
-import Clases_Abstractas.ProductoMenu;
-import Enum.*;
-import Interfaces.IPagable;
+import clases_abstractas.Plataforma;
+import clases_abstractas.ProductoMenu;
+import enums.*;
+import interfaces.IPagable;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,31 +58,39 @@ public class Main {
         Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
         Mesero mesero1 = new Mesero("Carlos", "789","Carlos@gmail.com");
 
-        Pedido pedido = PedidoFactory.crearPedido(c1);
+        //Pedido pedido = PedidoFactory.crearPedido(c1);
 
         // INTERFAZ DE TERMINAL PARA PROBAR FUNCIONES
 
-        System.out.println("Bienvenido al sistema de gestión de pedidos.");
+        System.out.println("Bienvenido al sistema de gestión de pedidos de " + Restaurante.getInstancia().getNombreRestaurante() + ".");
         System.out.println("Bienvenido " + c1.getNombre() + ".");
-        System.out.println("Por favor, elija una opción:");
 
         int menuUI = 0;
+        Pedido pedido = null;
+        Plataforma plat = null;
 
-        while (menuUI != 5){
-            System.out.println("1. Ver pedidos.");
-            System.out.println("2. Administrar pedido.");
-            System.out.println("3. Crear pedido.");
-            System.out.println("4. Cancelar pedido.");
-            System.out.println("5. Salir.");
+        while (menuUI != 7){
+            System.out.println("Por favor, elija una opción:");
+            System.out.println("1. Ver pedidos");
+            System.out.println("2. Administrar pedido");
+            System.out.println("3. Crear pedido");
+            System.out.println("4. Seleccionar plataforma");
+            System.out.println("5. Agregar item a menú");
+            System.out.println("6. Sacar item del menú");
+            System.out.println("7. Salir.");
 
             menuUI = scanner.nextInt();
 
             switch (menuUI){
                 case 1:
-                    System.out.println("Pedidos: ");
-                    System.out.println("______________");
-                    for (Pedido restaurantePedido : Restaurante.getInstancia().getPedidos()) {
-                        System.out.println("ID Pedido: " + restaurantePedido.getId() + " Cliente: " + restaurantePedido.getCliente().getNombre());
+                    if(!Restaurante.getInstancia().getPedidos().isEmpty()){
+                        System.out.println("Pedidos: ");
+                        System.out.println("______________");
+                        for (Pedido restaurantePedido : Restaurante.getInstancia().getPedidos()) {
+                            System.out.println("ID Pedido: " + restaurantePedido.getId() + " Cliente: " + restaurantePedido.getCliente().getNombre());
+                        }
+                    } else {
+                        System.out.println("No hay pedidos en el sistema.");
                     }
                     break;
 
@@ -93,21 +104,20 @@ public class Main {
                         if (restaurantePedido.getId() == id) {
                             check = true;
                             pedido = restaurantePedido;
-
+                            System.out.println("Elija una opción:");
                         }
                     }
                     if (check){
                         int opcion = 0;
-                        while (opcion != 9){
+                        while (opcion != 8){
                             System.out.println("1. Mostrar menú");
                             System.out.println("2. Agregar producto");
                             System.out.println("3. Sacar producto");
                             System.out.println("4. Ver pedido");
                             System.out.println("5. Pagar pedido");
                             System.out.println("6. Cambiar estado de pedido");
-                            System.out.println("7. Agregar item a menú");
-                            System.out.println("8. Sacar item del menú");
-
+                            System.out.println("7. Cancelar pedido");
+                            System.out.println("8. Calcular tiempo de espera.");
                             System.out.println("9. Salir");
                             opcion = scanner.nextInt();
 
@@ -332,18 +342,12 @@ public class Main {
                                     }
                                     break;
 
-                                case 7:
-                                    MenuManager.agregarItemMenu(menu, scanner);
-                                    break;
 
-                                case 8:
-                                    MenuManager.eliminarItemMenu(menu, scanner);
-                                    break;
 
 
 
-                                case 9:
-                                    System.out.println("Saliendo del sistema");
+                                case 8:
+                                    System.out.println("Saliendo del pedido...");
                                     JsonWriter.writeFile(menu, menuFile);
                                     break;
 
@@ -360,46 +364,59 @@ public class Main {
 
                 case 3:
 
-                    /*
+                    if (plat != null) {
 
-                        CODIGO DE CREACION DE PEDIDO
+                        System.out.println("Nombre: ");
+                        String nombre = scanner.next();
+                        System.out.println("Apellido: ");
+                        String apellido = scanner.next();
+                        System.out.println("DNI: ");
+                        String dni = scanner.next();
+                        System.out.println("Correo: ");
+                        String correo = scanner.next();
 
 
-                     */
+                        Restaurante.getInstancia().agregarPedido(plat.generarPedido(new Cliente(nombre, apellido, dni, correo)));
 
+                    } else {
+                        System.out.println("Plataforma no existe");
+                    }
                     break;
 
                 case 4:
 
-                    System.out.println("ID del Pedido: ");
-                    int idCancelar = scanner.nextInt();
-
-                    boolean checkCancelar = false;
-
-                    for (Pedido restaurantePedido : Restaurante.getInstancia().getPedidos()) {
-                        if (restaurantePedido.getId() == idCancelar) {
-                            checkCancelar = true;
-                            pedido = restaurantePedido;
-
-                        }
+                    int opcion = -1;
+                    while ((opcion != 1) && (opcion != 2)) {
+                        System.out.println("1. Aplicacion movil");
+                        System.out.println("2. Totem");
+                        opcion = scanner.nextInt();
                     }
 
-                    if (checkCancelar){
-                        if (pedido.getEstado().equals(EstadoPedido.EN_ESPERA) || pedido.getEstado().equals(EstadoPedido.EN_PREPARACION)) {
-                            Restaurante.getInstancia().eliminarPedido(pedido);
-                            System.out.println("Pedido Cancelado!");
-                        } else {
-                            System.out.println("No es posible cancelar el pedido");
-                        }
+                    if (opcion == 1){
+                        plat = new AppMovil("");
                     } else {
-                        System.out.println("ID de pedido no existe");
+                        plat = new Totem("Totem 1");
                     }
+
+                    break;
+
+                case 5:
+                    MenuManager.agregarItemMenu(menu, scanner);
+                    break;
+
+                case 6:
+                    MenuManager.eliminarItemMenu(menu, scanner);
+                    break;
+
+                case 7:
+                    System.out.println("Saliendo del sistema...");
                     break;
 
                 default:
-                    System.out.println("Opción inválida. Por favor, elija una opción válida");
+                    System.out.println("Opción inválida. Por favor, elija una opción válida.");
+                    break;
 
-        }
+            }
 
         }
 

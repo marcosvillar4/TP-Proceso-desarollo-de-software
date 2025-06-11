@@ -1,7 +1,7 @@
 package Clases.notif;
 
-import Enum.EstadoPedido;
-import Interfaces.INotificacion;
+import enums.EstadoPedido;
+import interfaces.INotificacion;
 
 public class AppNotifAdapter implements INotificacion{
     private String userId;

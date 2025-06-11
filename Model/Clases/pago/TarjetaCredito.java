@@ -1,7 +1,7 @@
 package Clases.pago;
 
-import Interfaces.IPagable;
-import Clases_Abstractas.Tarjeta;
+import interfaces.IPagable;
+import clases_abstractas.Tarjeta;
 
 public class TarjetaCredito extends Tarjeta implements IPagable {
 

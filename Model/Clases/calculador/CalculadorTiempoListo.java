@@ -1,8 +1,7 @@
 package Clases.calculador;
 
 import Clases.pedido.Pedido;
-import Clases.api.ApiRappiAdapter;
-import Clases_Abstractas.CalculadorTiempoStrategy;
+import clases_abstractas.CalculadorTiempoStrategy;
 
 public class CalculadorTiempoListo extends CalculadorTiempoStrategy {
     @Override

@@ -1,6 +1,6 @@
 package Clases.pedido;
 
-import Clases_Abstractas.ProductoMenu;
+import clases_abstractas.ProductoMenu;
 
 public class PedidoManager {
     //Singleton
@@ -26,5 +26,8 @@ public class PedidoManager {
         pedido.getProductos().remove(producto);
     }
 
+    public boolean cancelarPedido(Pedido pedido){
+        return pedido.cancelarPedido();
+    }
 
 }

@@ -1,8 +1,8 @@
 package Clases.calculador;
 
 import Clases.pedido.Pedido;
-import Clases_Abstractas.CalculadorTiempoStrategy;
-import Clases_Abstractas.ProductoMenu;
+import clases_abstractas.CalculadorTiempoStrategy;
+import clases_abstractas.ProductoMenu;
 
 public class CalculadorTiempoPreparacion extends CalculadorTiempoStrategy {
     @Override

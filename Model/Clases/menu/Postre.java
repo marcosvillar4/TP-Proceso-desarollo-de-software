@@ -1,6 +1,6 @@
 package Clases.menu;
 
-import Clases_Abstractas.ProductoMenu;
+import clases_abstractas.ProductoMenu;
 
 public class Postre extends ProductoMenu {
 

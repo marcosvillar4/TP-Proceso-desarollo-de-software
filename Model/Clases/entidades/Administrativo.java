@@ -1,8 +1,8 @@
 package Clases.entidades;
 
 import Clases.pedido.Pedido;
-import Clases_Abstractas.Empleado;
-import Enum.EstadoPedido;
+import clases_abstractas.Empleado;
+import enums.EstadoPedido;
 
 public class Administrativo extends Empleado {
 

@@ -2,7 +2,7 @@ package Clases.calculador;
 
 import Clases.entidades.Restaurante;
 import Clases.pedido.Pedido;
-import Clases_Abstractas.CalculadorTiempoStrategy;
+import clases_abstractas.CalculadorTiempoStrategy;
 
 public class CalculadorTiempoEspera extends CalculadorTiempoStrategy {
     @Override

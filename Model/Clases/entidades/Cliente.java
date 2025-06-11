@@ -4,9 +4,9 @@ import Clases.notif.EmailNotifAdapter;
 import Clases.pago.Factura;
 import Clases.pago.FacturaFactory;
 import Clases.pedido.Pedido;
-import Interfaces.INotificacion;
-import Interfaces.IPagable;
-import Enum.EstadoPedido;
+import interfaces.INotificacion;
+import interfaces.IPagable;
+import enums.EstadoPedido;
 
 public class Cliente {
     private String nombre;

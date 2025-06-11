@@ -1,6 +1,6 @@
 package Clases.menu;
 
-import Clases_Abstractas.ProductoMenu;
+import clases_abstractas.ProductoMenu;
 
 public class Entrada extends ProductoMenu {
     public Entrada(int id, String nombre, String descripcion, float precio) {

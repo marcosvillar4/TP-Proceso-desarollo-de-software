@@ -31,5 +31,9 @@ public class Restaurante {
     public int getCantidadPedidos() {
         return pedidos.size();
     }
+
+    public String getNombreRestaurante() {
+        return nombreRestaurante;
+    }
 }
 

@@ -5,10 +5,11 @@ import java.util.*;
 
 import Clases.pago.Orden;
 import Clases.entidades.Cliente;
-import Clases_Abstractas.CalculadorTiempoStrategy;
-import Clases_Abstractas.Entrega;
-import Clases_Abstractas.ProductoMenu;
-import Enum.EstadoPedido;
+import clases_abstractas.CalculadorTiempoStrategy;
+import clases_abstractas.Entrega;
+import clases_abstractas.Plataforma;
+import clases_abstractas.ProductoMenu;
+import enums.EstadoPedido;
 
 public class Pedido {
 
@@ -21,7 +22,7 @@ public class Pedido {
     private String cupon;
     private float total;
     private float totalSinDescuento;
-    private boolean totem;
+    private Plataforma plataforma;
     private boolean programado;
     private LocalDateTime horarioProgramado;
     private CalculadorTiempoStrategy calculadorTiempo;
@@ -77,7 +78,6 @@ public class Pedido {
         }
     }
 
-
     public int calcularTiempoRestante() {
         if (calculadorTiempo != null) {
             return calculadorTiempo.calcularTiempoRestante(this);
@@ -85,85 +85,92 @@ public class Pedido {
         return -1;
     }
 
+    public boolean cancelarPedido(){
+        if(estado == EstadoPedido.EN_ESPERA){
+            float montoReembolso = total * 0.75f;
+
+            //Simulacion reembolso
+            System.out.println("Reembolso de 75%: $" + montoReembolso);
+            this.estado = EstadoPedido.CANCELADO;
+
+            return true;
+        } else if (estado == EstadoPedido.EN_PREPARACION){
+            //Simulacion cobro adicional
+            float costoExtra = 0;
+            for (ProductoMenu producto: productos) {
+                costoExtra += producto.getPrecio();
+            }
+
+            System.out.println("Cobro adicional por producto: $" + costoExtra);
+            this.estado = EstadoPedido.CANCELADO;
+            return true;
+        }
+
+        System.out.println("No se puede cancelar el pedido en estado " + estado);
+        return false;
+    }
+
+    //GETTERS Y SETTERS
     public void setCalculadorTiempo(CalculadorTiempoStrategy calculador) {
         this.calculadorTiempo = calculador;
     }
-
     public EstadoPedido getEstado() {
         return estado;
     }
-
     public Cliente getCliente() {
         return cliente;
     }
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
     public List<ProductoMenu> getProductos() {
         return productos;
     }
-
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
     }
-
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;
     }
-
     public void setCupon(String cupon){
         this.cupon = cupon;
     }
-
     public Orden getOrden() {
         return orden;
     }
-
     public float getTotal(){
         return total;
     }
-
     public float getTotalSinDescuento(){
         return totalSinDescuento;
     }
-
     public boolean isProgramado() {
         return programado;
     }
-
     public void setProgramado(boolean programado) {
         this.programado = programado;
     }
-
     public LocalDateTime getHorarioProgramado() {
         return horarioProgramado;
     }
-
     public void setHorarioProgramado(LocalDateTime horarioProgramado) {
         this.horarioProgramado = horarioProgramado;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public int getId() {
         return id;
     }
     public boolean isDelivery() {
         return esDelivery;
     }
-
     public void setDelivery(boolean esDelivery) {
         this.esDelivery = esDelivery;
     }
-
     public Entrega getEntrega() {
         return entrega;
     }
-
     public void setEntrega(Entrega entrega) {
         this.entrega = entrega;
     }

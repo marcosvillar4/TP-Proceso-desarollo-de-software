@@ -1,6 +1,6 @@
 package Clases.notif;
-import Enum.EstadoPedido;
-import Interfaces.INotificacion;
+import enums.EstadoPedido;
+import interfaces.INotificacion;
 
 public class EmailNotifAdapter implements INotificacion {
     private String direccion;
