@@ -4,8 +4,19 @@ import clases_abstractas.ProductoMenu;
 
 public class PlatoPrincipal extends ProductoMenu {
 
-    public PlatoPrincipal(int id, String nombre, String descripcion, float precio) {
-        super(id, nombre, descripcion, precio);
+    private boolean aptoCeliaco;
+
+    public PlatoPrincipal(int id, String nombre, String descripcion, float precio, int tiempoPreparacion, boolean aptoCeliaco) {
+        super(id, nombre, descripcion, precio, tiempoPreparacion);
+        this.aptoCeliaco = aptoCeliaco;
+    }
+
+    public boolean isAptoCeliaco() {
+        return aptoCeliaco;
+    }
+
+    public void setAptoCeliaco(boolean aptoCeliaco) {
+        this.aptoCeliaco = aptoCeliaco;
     }
 
     public PlatoPrincipal() {

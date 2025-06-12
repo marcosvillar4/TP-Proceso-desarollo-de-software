@@ -1,17 +1,16 @@
 import Clases.calculador.CalculadorTiempoEspera;
 import Clases.calculador.CalculadorTiempoListo;
 import Clases.calculador.CalculadorTiempoPreparacion;
-import Clases.menu.MenuManager;
+import Clases.menu.*;
 import Clases.pago.GooglePay;
 import Clases.pago.MercadoPago;
+import Clases.pedido.Planificador;
 import Clases.plataforma.AppMovil;
 import Clases.plataforma.Totem;
 import Clases.entidades.*;
 import Clases.Json.JsonManager;
 import Clases.Json.JsonReader;
 import Clases.Json.JsonWriter;
-import Clases.menu.Ingrediente;
-import Clases.menu.Menu;
 import Clases.pago.TarjetaCredito;
 import Clases.pago.TarjetaDebito;
 import Clases.pedido.Pedido;
@@ -33,6 +32,7 @@ public class Main {
 
         Cliente c1 = new Cliente("Juan", "Pérez", "Calle Falsa 123", "12345678");
 
+        /*
         Ingrediente i1 = new Ingrediente("Leche", "Leche entera", true);
         Ingrediente i2 = new Ingrediente("Harina", "Harina de trigo", false);
         Ingrediente i4 = new Ingrediente("Carne", "Carne de res", true);
@@ -45,6 +45,7 @@ public class Main {
         Ingrediente i10 = new Ingrediente("Pimienta", "Pimienta negra", false);
         Ingrediente i11 = new Ingrediente("Cebolla", "Cebolla blanca", false);
         Ingrediente i12 = new Ingrediente("Ajo", "Ajo fresco", false);
+        */
 
         File menuFile = jsonManager.checkFile("menu.json");
         Menu menu = new Menu();
@@ -56,15 +57,40 @@ public class Main {
             }
         }
 
-        Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com");
-        Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com");
-        Mesero mesero1 = new Mesero("Carlos", "789","Carlos@gmail.com");
 
-        //Pedido pedido = PedidoFactory.crearPedido(c1);
+        /*
+
+
+           *** TEMPORAL \/ ***
+
+
+        *//*/
+        menu.getCategoriasProductos().add(new Bebida(1, "Coca-Cola", "15", 100, 0, false));
+        menu.getCategoriasProductos().add(new Bebida(10, "Agua", "10", 10, 0, false));
+        menu.getCategoriasProductos().add(new Bebida(2, "Cerveza Heineken", "4", 200, 0, true));
+        menu.getCategoriasProductos().add(new Postre(11, "Flan", "Es rico", 100, 1, true));
+        menu.getCategoriasProductos().add(new Postre(15, "Pasta Frola", "Es rico", 100, 1, true));
+        menu.getCategoriasProductos().add(new PlatoPrincipal(16, "Fideos", "Con salsa", 100, 1, true));
+        menu.getCategoriasProductos().add(new Entrada(16, "Tortilla", "Española", 100, 1, true));
+        menu.getCategoriasProductos().add(new Entrada(17, "Provoleta", "Con moron", 100, 1, true));
+        */
+        /*
+
+
+            *** /\ COMENTARLO DESPUES DE EJECUTAR UNA VEZ (CODIGO PARA REGENERAR JSON) ***
+
+
+        */
+
+        Chef chef1 = new Chef("Pedro", "123", "Pedro@gmail.com", "Fideos", "Alto");
+        Administrativo administrativo1 = new Administrativo("Jose", "456", "Jose@gmail.com", "Cocina", "Noche");
+        Mesero mesero1 = new Mesero("Carlos", "789","Carlos@gmail.com", "A", "Bajo");
+
+        // Pedido pedido = PedidoFactory.crearPedido(c1);
 
         // INTERFAZ DE TERMINAL PARA PROBAR FUNCIONES
 
-        System.out.println("Bienvenido al sistema de gestión de pedidos de " + Restaurante.getInstancia() + ".");
+        System.out.println("Bienvenido al sistema de gestión de pedidos de " + Restaurante.getInstancia().getNombreRestaurante() + ".");
         System.out.println("Bienvenido " + c1.getNombre() + ".");
 
         int menuUI = 0;
@@ -77,7 +103,7 @@ public class Main {
             System.out.println("2. Administrar pedido");
             System.out.println("3. Crear pedido");
             System.out.println("4. Seleccionar plataforma");
-            System.out.println("5. Agregar item a menú");
+            System.out.println("5. Agregar item al menú");
             System.out.println("6. Sacar item del menú");
             System.out.println("7. Salir.");
 
@@ -134,7 +160,7 @@ public class Main {
 
                                 case 2:
 
-                                    if (!pedido.estaConfirmado()) {
+                                    if (!pedido.getConfirmado()) {
                                         System.out.println("Agregando producto:");
                                         System.out.println("Ingrese el ID del producto:");
                                         int idProducto = scanner.nextInt();
@@ -158,7 +184,7 @@ public class Main {
                                     break;
 
                                 case 3:
-                                    if (!pedido.estaConfirmado()) {
+                                    if (!pedido.getConfirmado()) {
                                         if (!pedido.getProductos().isEmpty()) {
                                             System.out.println("Sacando producto: ");
                                             System.out.println("Ingrese el ID del producto: ");
@@ -200,7 +226,7 @@ public class Main {
                                     break;
 
                                 case 5:
-                                    if (!pedido.estaConfirmado()) {
+                                    if (!pedido.getConfirmado()) {
                                         if (pedido.getProductos().isEmpty()) {
                                             System.out.println("Error: El pedido está vacío");
                                         } else {
@@ -228,7 +254,7 @@ public class Main {
                                             System.out.println("2. Tarjeta de Debito");
                                             System.out.println("3. MercadoPago");
                                             System.out.println("4. Google Pay");
-                                            System.out.println("5. Efectivo (10% OFF)");
+                                            System.out.println("5. Efectivo (10% OFF) |NO ES ACUMULABLE CON OTRAS PROMOCIONES|");
 
                                             int metodoPago = 0;
                                             boolean checkPago = false;
@@ -306,7 +332,7 @@ public class Main {
 
                                 case 6:
 
-                                    if (!pedido.estaConfirmado()) {
+                                    if (!pedido.getConfirmado()) {
                                         System.out.println("El pedido no está confirmado.");
                                     } else {
                                         System.out.println("Cambiar estado de pedido:");
@@ -388,7 +414,7 @@ public class Main {
 
                                 case 7:
                                     System.out.println("Cancelando pedido...");
-                                    if(pedido.cancelarPedido()){
+                                    if(PedidoManager.getInstance().cancelarPedido(pedido)){
                                         Restaurante.getInstancia().eliminarPedido(pedido);
                                         System.out.println("Pedido cancelado.");
                                         opcion = 9;
@@ -420,7 +446,7 @@ public class Main {
                                     break;
                                 case 9:
                                     System.out.println("Saliendo del pedido...");
-                                    JsonWriter.writeFile(menu, menuFile);
+
                                     break;
 
                                 default:
@@ -459,7 +485,8 @@ public class Main {
                         }
                         if (progrPedido.equalsIgnoreCase("s")) {
                             System.out.println("Programando pedido...");
-                            pedido.programarEntrega(scanner);
+                            Planificador planif = new Planificador();
+                            planif.programarPedido(scanner, pedido);
                             System.out.println("Pedido programado con éxito.");
                         }
 
@@ -470,6 +497,10 @@ public class Main {
 
                 case 4:
 
+                    if(plat != null){
+                        System.out.println("Ya hay una plataforma seleccionada.");
+                        break;
+                    }
                     int opcion = -1;
                     while ((opcion != 1) && (opcion != 2)) {
                         System.out.println("1. Aplicacion movil");
@@ -487,14 +518,13 @@ public class Main {
 
                 case 5:
                     MenuManager.agregarItemMenu(menu, scanner);
-                    break;
-
                 case 6:
                     MenuManager.eliminarItemMenu(menu, scanner);
                     break;
 
                 case 7:
                     System.out.println("Saliendo del sistema...");
+                    JsonWriter.writeFile(menu, menuFile);
                     break;
 
                 default:

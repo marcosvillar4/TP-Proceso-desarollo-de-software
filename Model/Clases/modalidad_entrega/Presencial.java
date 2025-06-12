@@ -5,7 +5,7 @@ import clases_abstractas.Entrega;
 
 public class Presencial extends Entrega {
     @Override
-    public int tiempoDeEntrega(Pedido pedido) {
+    public int tiempoDeEntrega() {
         return 0;
     }
 }

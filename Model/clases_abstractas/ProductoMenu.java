@@ -26,12 +26,13 @@ public abstract class ProductoMenu {
     private List<Ingrediente> listaIngredientes;
     private int tiempoPreparacion;
 
-    public ProductoMenu(int id, String nombre, String descripcion, float precio) {
+    public ProductoMenu(int id, String nombre, String descripcion, float precio, int tiempoPreparacion) {
         this.idProducto = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.listaIngredientes = new ArrayList<>();
+        this.tiempoPreparacion = tiempoPreparacion;
     }
 
 

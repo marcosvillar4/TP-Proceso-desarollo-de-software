@@ -33,6 +33,7 @@ public class Pedido {
 
     public Pedido(Cliente cliente) {
         this.cliente = cliente;
+        this.estado = EstadoPedido.EN_ESPERA;
     }
 
     public float calcularTotal() {
@@ -52,12 +53,7 @@ public class Pedido {
         this.orden = new Orden(this, esDelivery);
     }
 
-    public boolean estaConfirmado() {
-        return confirmado;
-    }
-
     public void cambiarEstado(EstadoPedido nuevoEstado) {
-
         if (this.estado == nuevoEstado){
             System.out.println("El nuevo estado es el mismo que el anterior");
         } else {
@@ -65,21 +61,12 @@ public class Pedido {
         }
 
         if(nuevoEstado == EstadoPedido.ENTREGADO){
-            System.out.println("Pedido entregado! Finalizando programa...");
+            System.out.println("Pedido entregado!");
             Restaurante.getInstancia().eliminarPedido(this);
         }
 
-        if(cliente != null && estaConfirmado() || this.estado != nuevoEstado){
+        if(cliente != null && getConfirmado() || this.estado != nuevoEstado){
             cliente.notificarCambioEstado(nuevoEstado);
-        }
-    }
-
-    public void activarPedidoProgramado(){
-        if(estado == EstadoPedido.PROGRAMADO && horarioProgramado != null){
-            if(LocalDateTime.now().isAfter(horarioProgramado)){
-                cambiarEstado(EstadoPedido.EN_ESPERA);
-                System.out.println("El pedido programado fue activado automáticamente");
-            }
         }
     }
 
@@ -88,55 +75,6 @@ public class Pedido {
             return calculadorTiempo.calcularTiempoRestante(this);
         }
         return -1;
-    }
-
-    public boolean cancelarPedido(){
-        if(estado == EstadoPedido.EN_ESPERA){
-            float montoReembolso = total * 0.75f;
-
-            //Simulacion reembolso
-            System.out.println("Reembolso de 75%: $" + montoReembolso);
-            this.estado = EstadoPedido.CANCELADO;
-
-            return true;
-        } else if (estado == EstadoPedido.EN_PREPARACION){
-            //Simulacion cobro adicional
-            float costoExtra = 0;
-            for (ProductoMenu producto: productos) {
-                costoExtra += producto.getPrecio();
-            }
-
-            System.out.println("Cobro extra: $" + costoExtra);
-            this.estado = EstadoPedido.CANCELADO;
-            return true;
-        }
-
-        System.out.println("El pedido solo es cancelable si se encuentra en preparación o en espera. Actualmente: " + estado);
-        return false;
-    }
-
-    public void programarEntrega(Scanner scanner) {
-        LocalDateTime fechaProgramada;
-
-        while (true) {
-            try {
-                System.out.println("Ingrese la fecha de entrega programada (formato: dd/MM/yyyy HH:mm):");
-                String input = scanner.nextLine();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                fechaProgramada = LocalDateTime.parse(input, formatter);
-
-                if (fechaProgramada.isAfter(LocalDateTime.now())) {
-                    this.horarioProgramado = fechaProgramada;
-                    this.estado = EstadoPedido.PROGRAMADO;
-                    return;
-                } else {
-                    System.out.println("La fecha debe ser posterior al momento actual.");
-                }
-
-            } catch (DateTimeParseException e) {
-                System.out.println("Formato inválido. Intente nuevamente.");
-            }
-        }
     }
 
     //GETTERS Y SETTERS
@@ -157,6 +95,9 @@ public class Pedido {
     }
     public void setConfirmado(boolean confirmado) {
         this.confirmado = confirmado;
+    }
+    public boolean getConfirmado() {
+        return confirmado;
     }
     public void setEstado(EstadoPedido estado) {
         this.estado = estado;

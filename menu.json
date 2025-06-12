@@ -2,19 +2,30 @@
   "categoriasProductos" : [ {
     "type" : "Bebida",
     "idProducto" : 1,
-    "nombre" : "coca-cola",
+    "nombre" : "Coca-Cola",
     "descripcion" : "15",
     "precio" : 100.0,
     "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
+    "tiempoPreparacion" : 0,
+    "esAlcoholica" : false
   }, {
     "type" : "Bebida",
     "idProducto" : 10,
-    "nombre" : "agua",
+    "nombre" : "Agua",
     "descripcion" : "10",
     "precio" : 10.0,
     "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
+    "tiempoPreparacion" : 0,
+    "esAlcoholica" : false
+  }, {
+    "type" : "Bebida",
+    "idProducto" : 2,
+    "nombre" : "Cerveza Heineken",
+    "descripcion" : "4",
+    "precio" : 200.0,
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 0,
+    "esAlcoholica" : true
   }, {
     "type" : "Postre",
     "idProducto" : 11,
@@ -22,46 +33,43 @@
     "descripcion" : "Es rico",
     "precio" : 100.0,
     "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
-  }, {
-    "type" : "PlatoPrincipal",
-    "idProducto" : 12,
-    "nombre" : "Fideos",
-    "descripcion" : "A la bolgnesa",
-    "precio" : 100.0,
-    "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
-  }, {
-    "type" : "Entrada",
-    "idProducto" : 13,
-    "nombre" : "Tortilla",
-    "descripcion" : " española",
-    "precio" : 1000.0,
-    "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
-  }, {
-    "type" : "Entrada",
-    "idProducto" : 14,
-    "nombre" : "Provoleta",
-    "descripcion" : "Con morrón",
-    "precio" : 12.0,
-    "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
+    "tiempoPreparacion" : 1,
+    "contieneAzucar" : true
   }, {
     "type" : "Postre",
     "idProducto" : 15,
-    "nombre" : "Pasta frola",
-    "descripcion" : "",
-    "precio" : 500.0,
+    "nombre" : "Pasta Frola",
+    "descripcion" : "Es rico",
+    "precio" : 100.0,
     "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
+    "tiempoPreparacion" : 1,
+    "contieneAzucar" : true
   }, {
-    "type" : "Bebida",
+    "type" : "PlatoPrincipal",
     "idProducto" : 16,
-    "nombre" : "Cerveza Heineken",
-    "descripcion" : "",
-    "precio" : 1500.0,
+    "nombre" : "Fideos",
+    "descripcion" : "Con salsa",
+    "precio" : 100.0,
     "listaIngredientes" : [ ],
-    "tiempoPreparacion" : 0
+    "tiempoPreparacion" : 1,
+    "aptoCeliaco" : true
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 16,
+    "nombre" : "Tortilla",
+    "descripcion" : "Española",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 1,
+    "fria" : true
+  }, {
+    "type" : "Entrada",
+    "idProducto" : 17,
+    "nombre" : "Provoleta",
+    "descripcion" : "Con moron",
+    "precio" : 100.0,
+    "listaIngredientes" : [ ],
+    "tiempoPreparacion" : 1,
+    "fria" : true
   } ]
 }

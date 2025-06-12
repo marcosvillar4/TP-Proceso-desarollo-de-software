@@ -1,14 +1,20 @@
 package Clases.entidades;
 
 import Clases.pedido.Pedido;
+import Clases.plataforma.Totem;
 import clases_abstractas.Empleado;
 import enums.EstadoPedido;
 
 
 public class Chef extends Empleado {
 
-    public Chef(String nombre, String legajo, String email) {
+    private String especialidadCocina;
+    private String nivelExperiencia;
+
+    public Chef(String nombre, String legajo, String email, String especialidadCocina, String nivelExperiencia) {
         super(nombre, legajo, email);
+        this.especialidadCocina = especialidadCocina;
+        this.nivelExperiencia = nivelExperiencia;
     }
 
     @Override
@@ -19,10 +25,14 @@ public class Chef extends Empleado {
         }
 
         pedido.cambiarEstado(nuevoEstado);
-        notificador.enviarNotificacion(nuevoEstado);
         System.out.println("Chef cambio el estado: " + nuevoEstado);
-        if(nuevoEstado == EstadoPedido.LISTO_PARA_ENTREGAR){
-            System.out.println("Notificando al mesero que el pedido esta listo para entregar");
+
+        if (pedido.getPlataforma().getClass() != Totem.class){
+            if(nuevoEstado == EstadoPedido.LISTO_PARA_ENTREGAR){
+                notificador.enviarNotificacion(nuevoEstado);
+                System.out.println("Notificando al mesero que el pedido esta listo para entregar");
+            }
         }
+
     }
 }

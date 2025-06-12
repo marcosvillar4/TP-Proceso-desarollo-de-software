@@ -5,7 +5,7 @@ import Clases.pedido.Pedido;
 public class FacturaFactory {
 
     public static Factura crearFactura(Pedido pedido){
-        if(pedido == null || !pedido.estaConfirmado()){
+        if(pedido == null || !pedido.getConfirmado()){
             throw new IllegalArgumentException("El pedido debe estar confirmado para generar la factura");
         }
 

@@ -6,7 +6,7 @@ import clases_abstractas.CalculadorTiempoStrategy;
 public class CalculadorTiempoListo extends CalculadorTiempoStrategy {
     @Override
     public int calcularTiempoRestante(Pedido pedido) {
-        return pedido.getEntrega().tiempoDeEntrega(pedido);
+        return pedido.getEntrega().tiempoDeEntrega();
     }
 }
 
