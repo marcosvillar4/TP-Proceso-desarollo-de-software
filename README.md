@@ -15,7 +15,7 @@ Repositorio correspondiente al Trabajo Práctico Obligatorio de la materia **Pro
 
 - `Model`: contiene el código fuente del sistema desarrollado en Java.
 - `StarUML`: incluye las distintas versiones del diagrama UML del proyecto.
-  - **Versión actual:** 9
+  - **Versión final:** 10
 
 ---
 
