@@ -518,6 +518,7 @@ public class Main {
 
                 case 5:
                     MenuManager.agregarItemMenu(menu, scanner);
+                    break;
                 case 6:
                     MenuManager.eliminarItemMenu(menu, scanner);
                     break;
